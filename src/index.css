@@ -1,0 +1,22 @@
+@import url("./styles/font.css");
+@import url("./styles/icons.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Prompt, system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 600;
+  font-size: 20px;
+
+  color-scheme: light dark;
+  color: white;
+  background-color: black;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

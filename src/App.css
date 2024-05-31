@@ -1,0 +1,8 @@
+#root {
+  background-image: url("/images/background-01.jpg");
+  background-position-y: bottom;
+  color: white;
+  width: 100dvw;
+  height: 100dvh;
+  padding: 2.4rem 3rem;
+}
