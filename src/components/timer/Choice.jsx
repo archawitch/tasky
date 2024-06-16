@@ -16,7 +16,7 @@ function Choice() {
               type: "RESUME_TIMER",
             });
           }}
-          className="mb-6 text-2xl"
+          className="mb-8 text-2xl"
         >
           Continue
         </button>
@@ -30,7 +30,7 @@ function Choice() {
               breakMinutes: timer.breakMinutes,
             });
           }}
-          className="mb-6 text-2xl"
+          className="mb-8 text-2xl"
         >
           Again
         </button>
