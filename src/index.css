@@ -9,11 +9,14 @@
   font-family: Prompt, system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 24px;
 
   color-scheme: light dark;
   color: white;
   background-color: black;
+
+  width: 100dvw;
+  height: 100dvh;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
