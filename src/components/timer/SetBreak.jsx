@@ -11,22 +11,31 @@ function SetBreak() {
   );
   const [index, setIndex] = useState(initialIndex);
 
-  function handleIndexChange() {
+  function increaseIndex() {
     const nextIndex = (index + 1) % breakTime.length;
     setIndex(nextIndex);
     dispatch({ type: "SET_BREAK_MINUTES", breakMinutes: breakTime[nextIndex] });
   }
 
+  function decreaseIndex() {
+    const nextIndex = index === 0 ? breakTime.length - 1 : index - 1;
+    setIndex(nextIndex);
+    dispatch({ type: "SET_BREAK_MINUTES", breakMinutes: breakTime[nextIndex] });
+  }
+
   return (
-    <>
-      <span
-        onClick={handleIndexChange}
-        className="ml-[0.1em] cursor-pointer text-2xl"
-      >
+    <div className="flex items-center">
+      <span onClick={increaseIndex} className="cursor-pointer pr-3">
+        <FontAwesomeIcon icon="fa-solid fa-plus" />
+      </span>
+      <span className="ml-[0.1em] cursor-pointer text-2xl">
         <FontAwesomeIcon icon="fa-solid fa-hourglass" className="mr-[0.2em]" />
         &ensp;{breakTime[index]}
       </span>
-    </>
+      <span onClick={decreaseIndex} className="cursor-pointer pl-[0.85rem]">
+        <FontAwesomeIcon icon="fa-solid fa-minus" />
+      </span>
+    </div>
   );
 }
 
