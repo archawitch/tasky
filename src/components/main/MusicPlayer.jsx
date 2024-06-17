@@ -140,8 +140,8 @@ function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRadioChanging, setIsRadioChanging] = useState(false);
   const [isHover, setIsHover] = useState(false);
-  const [isBreak, setIsBreak] = useState(false);
   const [isFirstRender, setIsFirstRender] = useState(true);
+  const [lastTimerStatus, setLastTimerStatus] = useState(null);
   const timer = useTimer();
 
   useEffect(() => {
@@ -185,21 +185,26 @@ function MusicPlayer() {
 
     // handle timer alarm
     let handleTimer = false;
-    if (!isFirstRender && isBreak !== timer.isBreak) {
-      // if there is a player playing on the background then pause for a sec
-      if (player && isPlaying) {
-        player.pauseVideo();
-        intervalRef.current = setInterval(() => {
-          player.playVideo();
-        }, 8000);
-      }
-      setIsBreak(timer.isBreak);
+    if (!isFirstRender || timer.status !== lastTimerStatus) {
       handleTimer = true;
+      if (
+        timer.status === "countdown ended" ||
+        timer.status === "break ended"
+      ) {
+        // if there is a player playing on the background then pause for a sec
+        if (player && isPlaying) {
+          player.pauseVideo();
+          intervalRef.current = setInterval(() => {
+            player.playVideo();
+          }, 8000);
+        }
+      }
+      setLastTimerStatus(timer.status);
     }
 
     if (isFirstRender) {
+      setLastTimerStatus(timer.status);
       setIsFirstRender(false);
-      setIsBreak(timer.isBreak);
     }
 
     // Clean up the player on unmount
@@ -211,7 +216,7 @@ function MusicPlayer() {
         clearInterval(intervalRef.current);
       }
     };
-  }, [currentIndex, timer.isBreak]);
+  }, [currentIndex, timer.status]);
 
   const handlePlay = () => {
     if (player) {

@@ -10,7 +10,7 @@ function TopWrapper({
   openSettings,
 }) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex h-14 items-center justify-between">
       <Clock></Clock>
       <MusicPlayer></MusicPlayer>
       <SettingsButton

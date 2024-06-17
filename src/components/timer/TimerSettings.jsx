@@ -11,7 +11,7 @@ function TimerSettings() {
       {!(timer.isCountdown || timer.isBreak || timer.isPause) && (
         <div
           id="set-break-start-wrapper"
-          className="flex items-end justify-between"
+          className="flex h-14 items-end justify-between"
         >
           <div>
             <SetTimer></SetTimer>

@@ -20,6 +20,7 @@ const initialTimerSettings = (() => {
       breakEndAt: null,
       breakElapsed: 0,
       pauseTime: 0,
+      status: null,
     };
   }
 })();
@@ -43,6 +44,7 @@ function timerReducer(timer, action) {
         timerElapsed: 0,
         breakElapsed: 0,
         pauseTime: 0,
+        status: "countdown",
       };
     case "UPDATE_ELAPSED_TIME":
       return { ...timer, timerElapsed: action.timerElapsed };
@@ -50,8 +52,9 @@ function timerReducer(timer, action) {
       return {
         ...timer,
         isCountdown: false,
-        isPause: false,
+        isPause: true,
         timerStartAt: null,
+        status: "countdown ended",
       };
     case "START_BREAK":
       const breakStartAt = Math.floor(Date.now() / 1000);
@@ -59,8 +62,10 @@ function timerReducer(timer, action) {
       return {
         ...timer,
         isBreak: true,
+        isPause: false,
         breakStartAt: breakStartAt,
         breakEndAt: breakEndAt,
+        status: "break",
       };
     case "UPDATE_BREAK_ELAPSED":
       return { ...timer, breakElapsed: action.breakElapsed };
@@ -71,6 +76,7 @@ function timerReducer(timer, action) {
         isPause: true,
         pauseTime: 0,
         breakStartAt: null,
+        status: "break ended",
       };
     case "END_SESSION":
       return {
@@ -78,6 +84,7 @@ function timerReducer(timer, action) {
         isCountdown: false,
         isBreak: false,
         isPause: false,
+        status: null,
       };
     case "TOGGLE_TIMER_STATE":
       return { ...timer, isPause: !timer.isPause };

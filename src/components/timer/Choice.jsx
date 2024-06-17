@@ -9,7 +9,7 @@ function Choice() {
       id="choice-wrapper"
       className="absolute left-0 top-0 z-50 flex h-full w-full flex-col items-center justify-center bg-black/35"
     >
-      {timer.isCountdown && (
+      {timer.status === "countdown" && (
         <button
           onClick={() => {
             dispatch({
@@ -21,7 +21,21 @@ function Choice() {
           Continue
         </button>
       )}
-      {!timer.isCountdown && (
+      {timer.status === "countdown ended" && (
+        <button
+          onClick={() => {
+            // start the break
+            dispatch({
+              type: "START_BREAK",
+            });
+          }}
+          className="mb-8 text-2xl"
+        >
+          Break
+        </button>
+      )}
+      {(timer.status === "countdown ended" ||
+        timer.status === "break ended") && (
         <button
           onClick={() => {
             dispatch({

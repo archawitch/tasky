@@ -30,10 +30,6 @@ function CountdownTimer() {
         // end the timer when the time is up
         const isEnded = elapsedTime >= timer.countdownMinutes * 60;
         if (isEnded) {
-          // play the alert sound
-          if (elapsedTime <= timer.countdownMinutes * 60 + 2) {
-            audioRef.current.play();
-          }
           // update
           dispatch({
             type: "UPDATE_ELAPSED_TIME",
@@ -43,10 +39,10 @@ function CountdownTimer() {
           dispatch({
             type: "TIMER_END",
           });
-          // dispatch to start the break
-          dispatch({
-            type: "START_BREAK",
-          });
+          // play the alert sound
+          if (elapsedTime <= timer.countdownMinutes * 60 + 2) {
+            audioRef.current.play();
+          }
         } else {
           refInterval.current = setInterval(() => {
             // update time left
@@ -99,7 +95,7 @@ function CountdownTimer() {
               type: "TOGGLE_TIMER_STATE",
             });
           }}
-          className="cursor-pointer text-4xl tracking-wide"
+          className="mt-1 cursor-pointer text-4xl tracking-wide"
         >
           {getCountdown(timeLeft)}
         </span>
