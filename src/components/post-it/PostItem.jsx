@@ -77,15 +77,15 @@ function PostItem({ post }) {
     postContent = (
       <>
         <div className="m-1 flex w-auto flex-grow flex-col flex-wrap items-center justify-center">
-          <p
-            className="mb-2 w-full text-wrap break-words text-center"
+          <span
+            className="mb-2 w-full whitespace-pre-wrap text-wrap break-words text-center"
             onClick={() => setIsEditing(true)}
             style={{
               fontSize: fontSize,
             }}
           >
             {post.text}
-          </p>
+          </span>
         </div>
       </>
     );

@@ -12,27 +12,40 @@ function SetBreak() {
   const [index, setIndex] = useState(initialIndex);
 
   function increaseIndex() {
-    const nextIndex = (index + 1) % breakTime.length;
-    setIndex(nextIndex);
-    dispatch({ type: "SET_BREAK_MINUTES", breakMinutes: breakTime[nextIndex] });
+    if (index < breakTime.length - 1) {
+      const nextIndex = index + 1;
+      setIndex(nextIndex);
+      dispatch({
+        type: "SET_BREAK_MINUTES",
+        breakMinutes: breakTime[nextIndex],
+      });
+    }
   }
 
   function decreaseIndex() {
-    const nextIndex = index === 0 ? breakTime.length - 1 : index - 1;
-    setIndex(nextIndex);
-    dispatch({ type: "SET_BREAK_MINUTES", breakMinutes: breakTime[nextIndex] });
+    if (index > 0) {
+      const nextIndex = index - 1;
+      setIndex(nextIndex);
+      dispatch({
+        type: "SET_BREAK_MINUTES",
+        breakMinutes: breakTime[nextIndex],
+      });
+    }
   }
 
   return (
     <div className="flex items-center">
-      <span onClick={increaseIndex} className="cursor-pointer pr-3">
+      <span onClick={increaseIndex} className="cursor-pointer pr-3 text-lg">
         <FontAwesomeIcon icon="fa-solid fa-plus" />
       </span>
       <span className="ml-[0.1em] cursor-pointer text-2xl">
         <FontAwesomeIcon icon="fa-solid fa-hourglass" className="mr-[0.2em]" />
         &ensp;{breakTime[index]}
       </span>
-      <span onClick={decreaseIndex} className="cursor-pointer pl-[0.85rem]">
+      <span
+        onClick={decreaseIndex}
+        className="cursor-pointer pl-[0.85rem] text-lg"
+      >
         <FontAwesomeIcon icon="fa-solid fa-minus" />
       </span>
     </div>

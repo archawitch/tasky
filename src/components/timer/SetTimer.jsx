@@ -11,25 +11,29 @@ function SetTimer() {
   const [minutes, setMinutes] = useState(initialMinutes());
 
   function increaseMinutes() {
-    const newMinutes = (minutes % 120) + 5;
-    setMinutes(newMinutes);
-    dispatch({
-      type: "SET_TIME_MINUTES",
-      countdownMinutes: newMinutes,
-    });
+    if (minutes < 120) {
+      const newMinutes = minutes + 5;
+      setMinutes(newMinutes);
+      dispatch({
+        type: "SET_TIME_MINUTES",
+        countdownMinutes: newMinutes,
+      });
+    }
   }
 
   function decreaseMinutesChange() {
-    const newMinutes = minutes === 5 ? 120 : minutes - 5;
-    setMinutes(newMinutes);
-    dispatch({
-      type: "SET_TIME_MINUTES",
-      countdownMinutes: newMinutes,
-    });
+    if (minutes > 5) {
+      const newMinutes = minutes - 5;
+      setMinutes(newMinutes);
+      dispatch({
+        type: "SET_TIME_MINUTES",
+        countdownMinutes: newMinutes,
+      });
+    }
   }
 
   return (
-    <div id="set-timer-wrapper" className="mb-1 flex items-center">
+    <div id="set-timer-wrapper" className="mb-1 flex items-center text-lg">
       <span onClick={increaseMinutes} className="cursor-pointer pr-3">
         <FontAwesomeIcon icon="fa-solid fa-plus" />
       </span>
@@ -38,7 +42,10 @@ function SetTimer() {
         &ensp;
         {minutes}
       </span>
-      <span onClick={decreaseMinutesChange} className="cursor-pointer pl-3">
+      <span
+        onClick={decreaseMinutesChange}
+        className="cursor-pointer pl-3 text-lg"
+      >
         <FontAwesomeIcon icon="fa-solid fa-minus" />
       </span>
     </div>
