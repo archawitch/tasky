@@ -1,8 +1,35 @@
+import { useContext } from "react";
 import { useTimer, useDispatchTimer } from "../../context/TimerContext";
 
 function Choice() {
   const timer = useTimer();
   const dispatch = useDispatchTimer();
+
+  useContext(() => {
+    const handleKeydown = (event) => {
+      event.stopPropagation();
+      if (event.code === "Space") {
+        if (timer.status === "countdown") {
+          dispatch({
+            type: "RESUME_TIMER",
+          });
+        } else if (timer.status === "countdown ended") {
+          dispatch({
+            type: "START_BREAK",
+          });
+        } else if (timer.status === "break ended") {
+          dispatch({
+            type: "START_TIMER",
+          });
+        }
+      }
+    };
+    document.addEventListener("keydown", handleKeydown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeydown);
+    };
+  }, []);
 
   return (
     <div
@@ -34,8 +61,7 @@ function Choice() {
           Break
         </button>
       )}
-      {(timer.status === "countdown ended" ||
-        timer.status === "break ended") && (
+      {
         <button
           onClick={() => {
             dispatch({
@@ -48,7 +74,7 @@ function Choice() {
         >
           Again
         </button>
-      )}
+      }
       <button
         onClick={() => {
           dispatch({

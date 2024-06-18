@@ -1,7 +1,7 @@
 import Clock from "./Clock";
 import OpenTodoButton from "../todo/OpenTodoButton";
 import SettingsButton from "./SettingsButton";
-import MusicPlayer from "./MusicPlayer";
+import MusicPlayer from "../music-player/MusicPlayer";
 
 function TopWrapper({
   isTodoVisible,

@@ -5,6 +5,7 @@ import { useDispatchTodoList } from "../../context/TodoListContext";
 import { useState, useEffect, useRef } from "react";
 import TodoSubItem from "./TodoSubItem";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import TodoContent from "./TodoContent";
 
 function TodoItem({ todo }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -31,6 +32,10 @@ function TodoItem({ todo }) {
     }
   }
 
+  function changeMode(mode) {
+    setIsEditing(mode);
+  }
+
   function addSubTask() {
     dispatch({
       type: "ADD_SUB_TASK",
@@ -46,50 +51,7 @@ function TodoItem({ todo }) {
     });
   };
 
-  let todoContent;
-  if (isEditing) {
-    todoContent = (
-      <input
-        ref={inputRef}
-        onBlur={(event) => {
-          setIsEditing(false);
-          const newTaskName = event.target.value;
-          dispatch({
-            type: "RENAME_TASK",
-            id: todo.id,
-            taskName: newTaskName,
-          });
-        }}
-        onFocus={(event) => {
-          event.target.value = todo.taskName;
-        }}
-        onKeyDown={(event) => {
-          event.stopPropagation();
-          if (event.code === "Enter" && event.target.value.trim() !== "") {
-            setIsEditing(false);
-          }
-        }}
-        className="w-full bg-transparent outline-none"
-        spellCheck="false"
-      />
-    );
-  } else {
-    todoContent = (
-      <span
-        onClick={(event) => {
-          setIsEditing(true);
-          event.stopPropagation();
-        }}
-      >
-        {todo.taskName}
-      </span>
-    );
-  }
-
   useEffect(() => {
-    if (isEditing) {
-      inputRef.current.focus();
-    }
     // check if its sub tasks are finished
     if (todo.subTasks.length > 0) {
       let count = 0;
@@ -105,7 +67,7 @@ function TodoItem({ todo }) {
         isChecked: done,
       });
     }
-  }, [isEditing, todo.subTasks]);
+  }, [todo.subTasks]);
 
   return (
     <div
@@ -136,9 +98,13 @@ function TodoItem({ todo }) {
             onChange={handleCheckbox}
             id={todo.id}
           />
-          <span className="ml-[1.5rem] mr-4 overflow-hidden text-ellipsis">
-            {todoContent}
-          </span>
+          <TodoContent
+            todo={todo}
+            dispatch={dispatch}
+            isEditing={isEditing}
+            setIsEditing={changeMode}
+            todoType="todo"
+          ></TodoContent>
           {!isFocused ? (
             <button
               onClick={(e) => {

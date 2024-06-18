@@ -9,10 +9,11 @@ function PostItem({ post }) {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [isEditing, setIsEditing] = useState(true);
+  const [inputText, setInputText] = useState("");
   const dispatch = useDispatchPosts();
 
   useEffect(() => {
-    if (isEditing && !isDragging) {
+    if (isEditing && !isDragging && inputText === post.text) {
       refTextarea.current.focus();
       const length = refTextarea.current.value.length;
       refTextarea.current.setSelectionRange(length, length);
@@ -22,7 +23,7 @@ function PostItem({ post }) {
       refTextarea.current.style.height = "auto";
       refTextarea.current.style.height = `${refTextarea.current.scrollHeight}px`;
     }
-  }, [isEditing, isDragging, post.text]);
+  }, [isEditing, isDragging, inputText]);
 
   function dragStart(e) {
     setIsDragging(true);
@@ -63,8 +64,10 @@ function PostItem({ post }) {
               });
             }}
             onFocus={(event) => {
-              event.target.value = post.text;
+              setInputText(post.text);
             }}
+            onChange={(event) => setInputText(event.target.value)}
+            value={inputText}
             onKeyDown={(event) => event.stopPropagation()}
             className="mb-2 w-full resize-none overflow-hidden text-wrap break-words bg-transparent outline-none"
             style={{

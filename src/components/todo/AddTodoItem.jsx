@@ -21,7 +21,7 @@ function AddTodoItem() {
   }
 
   return (
-    <div className="absolute bottom-0 mb-[2.4rem] flex w-full px-6">
+    <div className="absolute bottom-0 mb-6 flex w-full px-6 sm:mb-[2.4rem]">
       <div className="flex w-full rounded-lg border-[3px] border-white">
         <input
           style={{
@@ -55,7 +55,7 @@ function AddTodoItem() {
           }}
           onChange={(event) => setText(event.target.value)}
           value={text}
-          className="flex-grow bg-transparent px-4 py-[0.35rem] focus:outline-none"
+          className="w-full flex-grow bg-transparent px-4 py-[0.35rem] focus:outline-none"
           spellCheck="false"
         />
         <button

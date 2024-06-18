@@ -1,13 +1,10 @@
-import { forwardRef, useEffect, useRef } from "react";
+import { forwardRef } from "react";
 import "../../styles/checkbox.css";
-import { useDispatchTodoList } from "../../context/TodoListContext";
 
 const Checkbox = forwardRef(function Checkbox(
   { id, isChecked, onChange },
   ref,
 ) {
-  const dispatch = useDispatchTodoList();
-
   return (
     <div className="round">
       <input

@@ -1,4 +1,5 @@
-import Countdown from "./Countdown";
+import CountdownTimer from "./CountdownTimer";
+import CountdownBreak from "./CountdownBreak";
 import { useTimer } from "../../context/TimerContext";
 
 function Timer() {
@@ -11,7 +12,8 @@ function Timer() {
           id="timer-wrapper"
           className="flex h-14 items-end justify-center sm:justify-between"
         >
-          <Countdown></Countdown>
+          <CountdownTimer></CountdownTimer>
+          <CountdownBreak></CountdownBreak>
         </div>
       )}
     </>

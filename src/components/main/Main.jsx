@@ -50,12 +50,18 @@ function Main() {
   return (
     <>
       <div
+        id="main"
         style={{
           display: isSettings ? "none" : "flex",
         }}
         className="flex h-full"
       >
-        <div className="flex h-full flex-grow flex-col justify-between p-4 sm:px-[3rem] sm:py-[2.4rem]">
+        <div
+          style={{
+            width: isTodoVisible ? "auto" : "100%",
+          }}
+          className="flex h-full flex-grow flex-col justify-between p-4 pb-5 sm:px-[3rem] sm:py-[2.4rem]"
+        >
           <TopWrapper
             isTodoVisible={isTodoVisible}
             isTimerCountdown={timer.isCountdown}

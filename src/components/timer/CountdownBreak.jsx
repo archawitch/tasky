@@ -9,6 +9,7 @@ function CountdownBreak() {
   const audioRef = useRef(null);
 
   useEffect(() => {
+    let handleKeydown;
     if (timer.isBreak) {
       const now = Math.floor(new Date(Date.now()) / 1000);
       let breakElapsed = now - (timer.breakStartAt + timer.pauseTime);
@@ -34,11 +35,20 @@ function CountdownBreak() {
           });
         }, 100);
       }
+      handleKeydown = (event) => {
+        if (event.code === "Space") {
+          dispatch({
+            type: "TOGGLE_TIMER_STATE",
+          });
+        }
+      };
+      document.addEventListener("keydown", handleKeydown);
     }
     return () => {
       if (refInterval.current) {
         clearInterval(refInterval.current);
       }
+      document.removeEventListener("keydown", handleKeydown);
     };
   }, [timer.isBreak, timer.breakElapsed, dispatch]);
 

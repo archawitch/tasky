@@ -29,7 +29,7 @@ function postReducer(posts, action) {
           backgroundColor: currentColor,
           nextBackgroundColor: (currentColor + 1) % postColors.length,
           foreColor: "black",
-          align: "center",
+          align: "left",
         },
       ];
     case "EDIT_POST":

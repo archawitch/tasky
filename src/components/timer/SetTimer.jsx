@@ -37,7 +37,10 @@ function SetTimer() {
       <span onClick={increaseMinutes} className="cursor-pointer pr-3">
         <FontAwesomeIcon icon="fa-solid fa-plus" />
       </span>
-      <span className="cursor-pointer text-2xl tracking-wider">
+      <span
+        onClick={increaseMinutes}
+        className="cursor-pointer text-2xl tracking-wider"
+      >
         <FontAwesomeIcon icon="fa-solid fa-clock" />
         &ensp;
         {minutes}
