@@ -70,7 +70,7 @@ function PostItem({ post }) {
             style={{
               fontSize: fontSize,
             }}
-            rows="1"
+            rows="3"
             spellCheck="false"
           />
         </div>
@@ -81,10 +81,11 @@ function PostItem({ post }) {
       <>
         <div className="m-1 flex w-auto flex-grow flex-col flex-wrap items-center justify-center">
           <span
-            className="mb-2 w-full whitespace-pre-wrap text-wrap break-words text-center"
+            className="mb-2 w-full whitespace-pre-wrap text-wrap break-words"
             onClick={() => setIsEditing(true)}
             style={{
               fontSize: fontSize,
+              textAlign: post.align,
             }}
           >
             {post.text}
@@ -104,9 +105,9 @@ function PostItem({ post }) {
         onResize={(event, { node, size, handle }) => {
           if (
             size.width >= 240 &&
-            size.width <= 480 &&
+            size.width <= 720 &&
             size.height >= 192 &&
-            size.height <= 480
+            size.height <= 560
           ) {
             dispatch({
               type: "RESIZE_POST",
@@ -163,7 +164,7 @@ function PostItem({ post }) {
               className="m-0 mr-1 p-0"
             ></button>
             <button
-              className="mt-[0.2rem] pl-[0.3rem] pr-[0.2rem] text-[0.65rem] text-gray-500"
+              className="mt-[0.2rem] pl-[0.3rem] pr-[0.2rem] text-[0.65rem] text-gray-500 transition-colors duration-300 hover:text-gray-700"
               onClick={() => {
                 dispatch({
                   type: "SET_FONT_SIZE",
@@ -175,7 +176,7 @@ function PostItem({ post }) {
               A
             </button>
             <button
-              className="mt-[0.2rem] px-[0.2rem] text-[0.65rem] text-gray-500"
+              className="mt-[0.2rem] px-[0.2rem] text-[0.65rem] text-gray-500 transition-colors duration-300 hover:text-gray-700"
               onClick={() => {
                 dispatch({
                   type: "SET_FONT_SIZE",
@@ -206,6 +207,46 @@ function PostItem({ post }) {
             </button>
           </div>
           {postContent}
+          {!isEditing && (
+            <div className="absolute bottom-[0.22rem] right-2 opacity-0 transition-all duration-200 hover:opacity-100">
+              <button
+                className="mt-[0.2rem] px-[0.33rem] text-[0.65rem] text-gray-500 transition-colors duration-300 hover:text-gray-700"
+                onClick={() => {
+                  dispatch({
+                    type: "SET_ALIGNMENT",
+                    id: post.id,
+                    align: "left",
+                  });
+                }}
+              >
+                <FontAwesomeIcon icon="fa-solid fa-align-left" />
+              </button>
+              <button
+                className="mt-[0.2rem] px-[0.33rem] text-[0.65rem] text-gray-500 transition-colors duration-300 hover:text-gray-700"
+                onClick={() => {
+                  dispatch({
+                    type: "SET_ALIGNMENT",
+                    id: post.id,
+                    align: "center",
+                  });
+                }}
+              >
+                <FontAwesomeIcon icon="fa-solid fa-align-center" />
+              </button>
+              <button
+                className="mt-[0.2rem] px-[0.33rem] text-[0.65rem] text-gray-500 transition-colors duration-300 hover:text-gray-700"
+                onClick={() => {
+                  dispatch({
+                    type: "SET_ALIGNMENT",
+                    id: post.id,
+                    align: "right",
+                  });
+                }}
+              >
+                <FontAwesomeIcon icon="fa-solid fa-align-right" />
+              </button>
+            </div>
+          )}
         </div>
       </Resizable>
     </>

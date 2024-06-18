@@ -29,6 +29,7 @@ function postReducer(posts, action) {
           backgroundColor: currentColor,
           nextBackgroundColor: (currentColor + 1) % postColors.length,
           foreColor: "black",
+          align: "center",
         },
       ];
     case "EDIT_POST":
@@ -57,6 +58,14 @@ function postReducer(posts, action) {
       return posts.map((p) => {
         if (p.id === action.id) {
           return { ...p, fontSize: action.fontSize };
+        } else {
+          return p;
+        }
+      });
+    case "SET_ALIGNMENT":
+      return posts.map((p) => {
+        if (p.id === action.id) {
+          return { ...p, align: action.align };
         } else {
           return p;
         }
