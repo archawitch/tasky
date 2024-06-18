@@ -44,17 +44,9 @@ function TodoSubItem({ todoId, subTodo }) {
     subTodoContent = (
       <input
         ref={inputRef}
-        onBlur={() => setIsEditing(false)}
-        onKeyDown={(event) => {
-          event.stopPropagation();
-          if (event.code === "Enter" && event.target.value.trim() !== "") {
-            addSubTask();
-          }
-        }}
-        className="w-full bg-transparent outline-none"
-        value={subTodo.taskName}
-        onChange={(e) => {
-          const newTaskName = e.target.value;
+        onBlur={(event) => {
+          setIsEditing(false);
+          const newTaskName = event.target.value;
           dispatch({
             type: "RENAME_SUB_TASK",
             todoId: todoId,
@@ -62,6 +54,17 @@ function TodoSubItem({ todoId, subTodo }) {
             taskName: newTaskName,
           });
         }}
+        onFocus={(event) => {
+          event.target.value = subTodo.taskName;
+        }}
+        onKeyDown={(event) => {
+          event.stopPropagation();
+          if (event.code === "Enter" && event.target.value.trim() !== "") {
+            addSubTask();
+          }
+        }}
+        className="w-full bg-transparent outline-none"
+        spellCheck="false"
       />
     );
   } else {

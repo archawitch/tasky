@@ -42,10 +42,7 @@ function SetBreak() {
         <FontAwesomeIcon icon="fa-solid fa-hourglass" className="mr-[0.2em]" />
         &ensp;{breakTime[index]}
       </span>
-      <span
-        onClick={decreaseIndex}
-        className="cursor-pointer pl-[0.85rem] text-lg"
-      >
+      <span onClick={decreaseIndex} className="cursor-pointer px-3 text-lg">
         <FontAwesomeIcon icon="fa-solid fa-minus" />
       </span>
     </div>

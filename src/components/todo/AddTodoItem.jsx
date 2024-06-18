@@ -56,6 +56,7 @@ function AddTodoItem() {
           onChange={(event) => setText(event.target.value)}
           value={text}
           className="flex-grow bg-transparent px-4 py-[0.35rem] focus:outline-none"
+          spellCheck="false"
         />
         <button
           onClick={() => {

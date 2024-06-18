@@ -50,14 +50,8 @@ function PostItem({ post }) {
         <div className="m-1 flex w-auto flex-grow flex-col flex-wrap items-center justify-center">
           <textarea
             ref={refTextarea}
-            onBlur={() => setIsEditing(false)}
-            className="mb-2 w-full resize-none overflow-hidden text-wrap break-words bg-transparent outline-none"
-            style={{
-              fontSize: fontSize,
-            }}
-            rows="1"
-            value={post.text}
-            onChange={(event) => {
+            onBlur={(event) => {
+              setIsEditing(false);
               event.stopPropagation();
               const newText = event.target.value;
               dispatch({
@@ -68,7 +62,16 @@ function PostItem({ post }) {
                 },
               });
             }}
+            onFocus={(event) => {
+              event.target.value = post.text;
+            }}
             onKeyDown={(event) => event.stopPropagation()}
+            className="mb-2 w-full resize-none overflow-hidden text-wrap break-words bg-transparent outline-none"
+            style={{
+              fontSize: fontSize,
+            }}
+            rows="1"
+            spellCheck="false"
           />
         </div>
       </>

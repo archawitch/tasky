@@ -44,7 +44,7 @@ function SetTimer() {
       </span>
       <span
         onClick={decreaseMinutesChange}
-        className="cursor-pointer pl-3 text-lg"
+        className="cursor-pointer px-3 text-lg"
       >
         <FontAwesomeIcon icon="fa-solid fa-minus" />
       </span>

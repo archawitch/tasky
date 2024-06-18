@@ -51,23 +51,26 @@ function TodoItem({ todo }) {
     todoContent = (
       <input
         ref={inputRef}
-        onKeyDown={(event) => {
-          event.stopPropagation();
-          if (event.code === "Enter" && event.target.value.trim() !== "") {
-            setIsEditing(false);
-          }
-        }}
-        onBlur={() => setIsEditing(false)}
-        className="w-full bg-transparent outline-none"
-        value={todo.taskName}
-        onChange={(e) => {
-          const newTaskName = e.target.value;
+        onBlur={(event) => {
+          setIsEditing(false);
+          const newTaskName = event.target.value;
           dispatch({
             type: "RENAME_TASK",
             id: todo.id,
             taskName: newTaskName,
           });
         }}
+        onFocus={(event) => {
+          event.target.value = todo.taskName;
+        }}
+        onKeyDown={(event) => {
+          event.stopPropagation();
+          if (event.code === "Enter" && event.target.value.trim() !== "") {
+            setIsEditing(false);
+          }
+        }}
+        className="w-full bg-transparent outline-none"
+        spellCheck="false"
       />
     );
   } else {
