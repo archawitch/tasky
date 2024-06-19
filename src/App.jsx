@@ -1,6 +1,7 @@
 import "./App.css";
 import Main from "./components/main/Main";
 import PreventSleep from "./components/PreventSleep";
+import FullScreen from "./components/FullScreen";
 import { PostProvider } from "./context/PostContext";
 import { TimerProvider } from "./context/TimerContext";
 import { SettingsProvider } from "./context/SettingsContext";
@@ -29,15 +30,19 @@ function App() {
           </div>
         </div>
       ) : (
-        <SettingsProvider>
-          <TimerProvider>
-            <PostProvider>
-              <PreventSleep>
-                <Main></Main>
-              </PreventSleep>
-            </PostProvider>
-          </TimerProvider>
-        </SettingsProvider>
+        <>
+          <SettingsProvider>
+            <TimerProvider>
+              <PostProvider>
+                <PreventSleep>
+                  <FullScreen>
+                    <Main></Main>
+                  </FullScreen>
+                </PreventSleep>
+              </PostProvider>
+            </TimerProvider>
+          </SettingsProvider>
+        </>
       )}
     </>
   );

@@ -41,9 +41,11 @@ function Main() {
     }
     if (settings.backgroundFrom === "system") {
       const backgroundImage = getBackground(settings.selectedBackground);
-      document.body.style.backgroundImage = backgroundImage;
+      document.getElementById("background").style.backgroundImage =
+        backgroundImage;
     } else {
-      document.body.style.backgroundImage = `url("${settings.userBackground}")`;
+      document.getElementById("background").style.backgroundImage =
+        `url("${settings.userBackground}")`;
     }
   }, [settings.selectedBackground, settings.userBackground]);
 

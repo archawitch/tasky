@@ -29,31 +29,28 @@ function TodoList({ isVisible, closeTodoList }) {
         }}
         className="absolute z-50 flex h-full overflow-clip bg-[#66676B] text-[0.8rem] font-medium transition-all duration-500 sm:relative sm:bg-[#66676B]/90"
       >
-        {isVisible && (
-          <>
-            <TransitionGroup className="todo-list scrollable mb-24 mt-[2.4rem] flex w-full flex-col px-6 sm:mb-24">
-              {todoList.map((todo) => {
-                return (
-                  <CSSTransition
-                    key={todo.id}
-                    timeout={500}
-                    nodeRef={todo.nodeRef}
-                    classNames="todo"
-                  >
-                    <TodoItem key={todo.id} todo={todo}></TodoItem>
-                  </CSSTransition>
-                );
-              })}
-            </TransitionGroup>
-            <AddTodoItem></AddTodoItem>
-            <button
-              onClick={closeTodoList}
-              className="absolute left-[0.4rem] top-[0.2rem] text-lg text-neutral-200"
-            >
-              <FontAwesomeIcon icon="fa-solid fa-caret-right" />
-            </button>
-          </>
-        )}
+        <div
+          style={{
+            width: screen.width > 576 ? "20rem" : "100%",
+          }}
+        >
+          <TransitionGroup className="todo-list scrollable mb-24 mt-[2.4rem] flex w-full flex-col px-6 sm:mb-24">
+            {todoList.map((todo) => {
+              return (
+                <CSSTransition key={todo.id} timeout={500} classNames="todo">
+                  <TodoItem key={todo.id} todo={todo}></TodoItem>
+                </CSSTransition>
+              );
+            })}
+          </TransitionGroup>
+          <AddTodoItem></AddTodoItem>
+          <button
+            onClick={closeTodoList}
+            className="absolute left-[0.4rem] top-[0.2rem] text-lg text-neutral-200"
+          >
+            <FontAwesomeIcon icon="fa-solid fa-caret-right" />
+          </button>
+        </div>
       </div>
     </>
   );

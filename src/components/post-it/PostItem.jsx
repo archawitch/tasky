@@ -74,7 +74,6 @@ function PostItem({ post }) {
               fontSize: fontSize,
             }}
             rows="3"
-            spellCheck="false"
           />
         </div>
       </>

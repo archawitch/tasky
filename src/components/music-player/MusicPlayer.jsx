@@ -133,17 +133,17 @@ function MusicPlayer() {
           onMouseLeave={() => setIsHover(false)}
           style={{
             opacity: isHover ? "1" : "0",
-            transitionDelay: isHover ? "100ms" : "7000ms",
+            transitionDelay: isHover ? "0ms" : "7000ms",
           }}
-          className="relative mr-12 flex max-w-52 cursor-pointer items-center justify-center rounded-xl bg-neutral-200/50 bg-cover px-6 pb-1 pt-2 transition-all duration-300"
+          className="relative mr-12 flex max-w-52 cursor-pointer items-center justify-center rounded-xl bg-neutral-200/50 bg-cover px-6 pb-1 pt-2 transition-all duration-200"
         >
           <div className="hidden" ref={playerRef} id="player"></div>
           <div
             style={{
               opacity: isHover ? "1" : "0",
-              transitionDelay: isHover ? "100ms" : "7000ms",
+              transitionDelay: isHover ? "0ms" : "7000ms",
             }}
-            className="flex w-full flex-col items-center transition-all"
+            className="flex w-full flex-col items-center transition-all delay-200 duration-200"
           >
             <span className="w-full overflow-hidden text-ellipsis text-nowrap text-center font-mono text-[0.6rem]">
               <span>{radios[currentIndex].name}</span>

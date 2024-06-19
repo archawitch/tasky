@@ -10,7 +10,6 @@ import TodoContent from "./TodoContent";
 function TodoItem({ todo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const inputRef = useRef(null);
   const checkboxRef = useRef(null);
   const dispatch = useDispatchTodoList();
   const marginBottom = isFocused ? "2.6rem" : "0.75rem";
@@ -71,7 +70,6 @@ function TodoItem({ todo }) {
 
   return (
     <div
-      ref={todo.nodeRef}
       style={{
         order: todo.order,
       }}
