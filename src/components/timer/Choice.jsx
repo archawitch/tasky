@@ -61,7 +61,7 @@ function Choice() {
           Break
         </button>
       )}
-      {
+      {timer.status !== "countdown" && (
         <button
           onClick={() => {
             dispatch({
@@ -74,7 +74,7 @@ function Choice() {
         >
           Again
         </button>
-      }
+      )}
       <button
         onClick={() => {
           dispatch({
