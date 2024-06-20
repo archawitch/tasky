@@ -8,12 +8,13 @@ function PostItem({ post }) {
   const refTextarea = useRef(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const [isEditing, setIsEditing] = useState(true);
-  const [inputText, setInputText] = useState("");
+  const [isEditing, setIsEditing] = useState(post.text === "");
+  const [inputText, setInputText] = useState(post.text);
   const dispatch = useDispatchPosts();
 
   useEffect(() => {
     if (isEditing && !isDragging && inputText === post.text) {
+      console.log(inputText);
       refTextarea.current.focus();
       const length = refTextarea.current.value.length;
       refTextarea.current.setSelectionRange(length, length);
@@ -67,11 +68,16 @@ function PostItem({ post }) {
                 },
               });
             }}
-            onFocus={(event) => {
-              setInputText(post.text);
+            onChange={(event) => {
+              setInputText(event.target.value);
             }}
-            onChange={(event) => setInputText(event.target.value)}
+            onMouseDown={(event) => {
+              event.stopPropagation();
+            }}
             onMouseMove={(event) => {
+              event.stopPropagation();
+            }}
+            onTouchStart={(event) => {
               event.stopPropagation();
             }}
             onTouchMove={(event) => {
