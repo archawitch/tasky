@@ -25,21 +25,21 @@ function PostItem({ post }) {
     }
   }, [isEditing, isDragging, inputText]);
 
-  function dragStart(e) {
+  function dragStart(x, y) {
     setIsDragging(true);
     setOffset({
-      x: e.clientX - post.posX,
-      y: e.clientY - post.posY,
+      x: x - post.posX,
+      y: y - post.posY,
     });
   }
 
-  function dragPost(event) {
+  function dragPost(x, y) {
     if (isDragging) {
       dispatch({
         type: "MOVE_POST",
         id: post.id,
-        posX: event.clientX - offset.x,
-        posY: event.clientY - offset.y,
+        posX: x - offset.x,
+        posY: y - offset.y,
       });
     }
   }
@@ -74,6 +74,9 @@ function PostItem({ post }) {
             onMouseMove={(event) => {
               event.stopPropagation();
             }}
+            onTouchMove={(event) => {
+              event.stopPropagation();
+            }}
             value={inputText}
             onKeyDown={(event) => event.stopPropagation()}
             className="mb-2 w-full resize-none overflow-hidden text-wrap break-words bg-transparent outline-none"
@@ -92,10 +95,16 @@ function PostItem({ post }) {
           <span
             className="mb-2 w-full cursor-default whitespace-pre-wrap text-wrap break-words"
             onClick={() => setIsEditing(true)}
+            onMouseDown={(event) => {
+              event.stopPropagation();
+            }}
             onMouseMove={(event) => {
               event.stopPropagation();
             }}
-            onMouseDown={(event) => {
+            onTouchStart={(event) => {
+              event.stopPropagation();
+            }}
+            onTouchMove={(event) => {
               event.stopPropagation();
             }}
             style={{
@@ -117,6 +126,10 @@ function PostItem({ post }) {
         handle={
           <span
             onMouseMove={(event) => {
+              setIsDragging(false);
+              event.stopPropagation();
+            }}
+            onTouchMove={(event) => {
               setIsDragging(false);
               event.stopPropagation();
             }}
@@ -142,15 +155,29 @@ function PostItem({ post }) {
         <div
           onMouseDown={(event) => {
             setIsDragging(true);
-            dragStart(event);
+            dragStart(event.clientX, event.clientY);
           }}
           onMouseMove={(event) => {
-            dragPost(event);
+            dragPost(event.clientX, event.clientY);
           }}
           onMouseUp={() => {
             dragEnd();
           }}
           onMouseLeave={() => {
+            dragEnd();
+          }}
+          onTouchStart={(event) => {
+            const touch = event.touches[0];
+            dragStart(touch.clientX, touch.clientY);
+          }}
+          onTouchMove={(event) => {
+            const touch = event.touches[0];
+            dragPost(touch.clientX, touch.clientY);
+          }}
+          onTouchEnd={() => {
+            dragEnd();
+          }}
+          onTouchCancel={() => {
             dragEnd();
           }}
           onClick={() => {
