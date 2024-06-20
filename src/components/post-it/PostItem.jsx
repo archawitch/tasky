@@ -33,15 +33,19 @@ function PostItem({ post }) {
     });
   }
 
-  function dragPost(e) {
+  function dragPost(event) {
     if (isDragging) {
       dispatch({
         type: "MOVE_POST",
         id: post.id,
-        posX: e.clientX - offset.x,
-        posY: e.clientY - offset.y,
+        posX: event.clientX - offset.x,
+        posY: event.clientY - offset.y,
       });
     }
+  }
+
+  function dragEnd() {
+    setIsDragging(false);
   }
 
   let postContent;
@@ -67,6 +71,9 @@ function PostItem({ post }) {
               setInputText(post.text);
             }}
             onChange={(event) => setInputText(event.target.value)}
+            onMouseMove={(event) => {
+              event.stopPropagation();
+            }}
             value={inputText}
             onKeyDown={(event) => event.stopPropagation()}
             className="mb-2 w-full resize-none overflow-hidden text-wrap break-words bg-transparent outline-none"
@@ -83,8 +90,14 @@ function PostItem({ post }) {
       <>
         <div className="m-1 flex w-auto flex-grow flex-col flex-wrap items-center justify-center">
           <span
-            className="mb-2 w-full whitespace-pre-wrap text-wrap break-words"
+            className="mb-2 w-full cursor-default whitespace-pre-wrap text-wrap break-words"
             onClick={() => setIsEditing(true)}
+            onMouseMove={(event) => {
+              event.stopPropagation();
+            }}
+            onMouseDown={(event) => {
+              event.stopPropagation();
+            }}
             style={{
               fontSize: fontSize,
               textAlign: post.align,
@@ -102,7 +115,13 @@ function PostItem({ post }) {
         height={post.height}
         width={post.width}
         handle={
-          <span className="absolute bottom-0 right-0 h-2 w-2 cursor-se-resize"></span>
+          <span
+            onMouseMove={(event) => {
+              setIsDragging(false);
+              event.stopPropagation();
+            }}
+            className="absolute bottom-0 right-0 h-2 w-2 cursor-se-resize"
+          ></span>
         }
         onResize={(event, { node, size, handle }) => {
           if (
@@ -121,16 +140,18 @@ function PostItem({ post }) {
         }}
       >
         <div
-          draggable={isDragging}
-          onDragStart={(event) => {
+          onMouseDown={(event) => {
+            setIsDragging(true);
             dragStart(event);
           }}
-          onDrag={(event) => {
+          onMouseMove={(event) => {
             dragPost(event);
           }}
-          onDragEnd={(event) => {
-            dragPost(event);
-            setIsDragging(false);
+          onMouseUp={() => {
+            dragEnd();
+          }}
+          onMouseLeave={() => {
+            dragEnd();
           }}
           onClick={() => {
             if (!isEditing && post.text === "") {
@@ -143,10 +164,10 @@ function PostItem({ post }) {
             left: post.posX,
             top: post.posY,
             minHeight: `${post.height}px`,
-            maxHeight: "480px",
+            maxHeight: "560px",
             width: `${post.width}px`,
           }}
-          className="absolute z-0 flex flex-col overflow-clip px-3 pb-3 pt-2 font-normal leading-snug opacity-90"
+          className="grabbable absolute z-0 flex flex-col overflow-clip px-3 pb-3 pt-2 font-normal leading-snug opacity-90"
         >
           <div className="mb-2 flex w-full items-center">
             <button
@@ -189,13 +210,7 @@ function PostItem({ post }) {
             >
               a
             </button>
-            <div
-              className="grabbable pointer-events-auto flex h-[1rem] flex-grow"
-              onMouseDown={() => {
-                setIsDragging(true);
-              }}
-              onMouseUp={() => setIsDragging(false)}
-            ></div>
+            <div className="flex h-[1rem] flex-grow"></div>
             <button
               className="ml-auto text-sm text-gray-500"
               onClick={() => {
