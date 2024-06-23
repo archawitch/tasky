@@ -28,12 +28,13 @@ function ChangeBackground({ settings, dispatch }) {
     <div className="mb-2 flex w-full items-center justify-between">
       <button
         onClick={() => {
+          const backgroundCount = screen.width >= 640 ? 6 : 3;
           dispatch({
             type: "CHANGE_BACKGROUND",
             selectedBackground:
-              settings.selectedBackground === 0
-                ? 22
-                : (settings.selectedBackground - 1) % 21,
+              settings.selectedBackground <= 0
+                ? backgroundCount - 1
+                : settings.selectedBackground - 1,
           });
         }}
       >
@@ -49,12 +50,13 @@ function ChangeBackground({ settings, dispatch }) {
       ></input>
       <button
         onClick={() => {
+          const backgroundCount = screen.width >= 640 ? 6 : 3;
           dispatch({
             type: "CHANGE_BACKGROUND",
             selectedBackground:
-              settings.selectedBackground === 22
+              settings.selectedBackground >= backgroundCount - 1
                 ? 0
-                : (settings.selectedBackground + 1) % 21,
+                : settings.selectedBackground + 1,
           });
         }}
       >

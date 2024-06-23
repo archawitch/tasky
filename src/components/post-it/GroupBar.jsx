@@ -11,43 +11,33 @@ function GroupBar() {
   const dispatchPosts = useDispatchPosts();
 
   return (
-    <div className="absolute bottom-10 flex w-full items-center justify-center">
-      <div
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        style={{
-          opacity: isHovered ? "1" : "0",
-          transitionDelay: isHovered ? null : "1000ms",
-        }}
-        className="flex items-center justify-center transition-opacity duration-200"
-      >
-        {groupsItems &&
-          groupsItems.length > 0 &&
-          groupsItems.map((group) => {
-            return (
-              <GroupItem
-                key={group}
-                currentGroup={groups.currentGroup}
-                group={group}
-                dispatch={dispatchGroup}
-              ></GroupItem>
-            );
-          })}
-        {groupsItems.length < 10 && (
-          <AddGroupButton dispatch={dispatchGroup}></AddGroupButton>
-        )}
-        {groupsItems.length > 1 && (
-          <DeleteGroupButton
-            dispatchGroup={dispatchGroup}
-            dispatchPosts={dispatchPosts}
-          ></DeleteGroupButton>
-        )}
-      </div>
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="flex items-center justify-center transition-all duration-200"
+    >
+      {groupsItems &&
+        groupsItems.length > 0 &&
+        groupsItems.map((group) => {
+          return (
+            <GroupItem
+              key={group}
+              group={group}
+              isGroupHovered={isHovered}
+            ></GroupItem>
+          );
+        })}
+      {groupsItems.length < 10 && (
+        <AddGroupButton isHovered={isHovered}></AddGroupButton>
+      )}
+      {groupsItems.length > 1 && (
+        <DeleteGroupButton isHovered={isHovered}></DeleteGroupButton>
+      )}
     </div>
   );
 }
 
-function GroupItem({ group }) {
+function GroupItem({ group, isGroupHovered }) {
   const [isHovered, setIsHovered] = useState(false);
   const groups = useGroup();
   const dispatch = useDispatchGroup();
@@ -78,7 +68,7 @@ function GroupItem({ group }) {
   );
 }
 
-function AddGroupButton() {
+function AddGroupButton({ isHovered }) {
   const dispatch = useDispatchGroup();
 
   return (
@@ -90,14 +80,14 @@ function AddGroupButton() {
           type: "ADD_GROUP",
         });
       }}
-      className="transition-color px-2 py-1 text-xs text-neutral-200 hover:text-white"
+      className="px-2 py-1 text-xs text-neutral-200 transition-all hover:text-white"
     >
       <FontAwesomeIcon icon="fa-solid fa-plus" />
     </button>
   );
 }
 
-function DeleteGroupButton() {
+function DeleteGroupButton({ isHovered }) {
   const groups = useGroup();
   const dispatchGroup = useDispatchGroup();
   const dispatchPosts = useDispatchPosts();
@@ -118,7 +108,7 @@ function DeleteGroupButton() {
       style={{
         paddingLeft: groups.groups.length === 10 ? "1rem" : null,
       }}
-      className="transition-color px-2 py-1 text-xs text-neutral-200 hover:text-white"
+      className="px-2 py-1 text-xs text-neutral-200 transition-all hover:text-white"
     >
       <FontAwesomeIcon icon="fa-solid fa-trash" />
     </button>

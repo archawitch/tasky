@@ -70,6 +70,7 @@ function MusicPlayer() {
   useEffect(() => {
     if (currentIndex >= 0) {
       localStorage.setItem("selectedRadio", currentIndex);
+      console.log(currentIndex);
     }
   }, [currentIndex]);
 
@@ -190,6 +191,7 @@ function MusicPlayer() {
   useEffect(() => {
     if (radios) {
       localStorage.setItem("radios", JSON.stringify(radios));
+      console.log(radios);
     }
   }, [radios]);
 
@@ -288,47 +290,31 @@ const selectedRadio = () => {
 };
 const providedRadios = [
   {
-    id: "xU6MdIBl2uI",
-    name: "The Summer We Fell In Love",
-  },
-  {
-    id: "2NWJexn0kRs",
-    name: "Just The Two Of Us",
-  },
-  {
     id: "jfKfPfyJRdk",
-    name: "Lofi",
+    name: "Lofi hip hop ♫",
   },
   {
     id: "3tQs6l4d8hM",
-    name: "Classical",
+    name: "Classical 𝄞⨾𓍢ִ໋",
   },
   {
     id: "0vSifZ4jprA",
-    name: "Jazz",
+    name: "Jazz ☕︎",
   },
   {
-    id: "TUd0g6Zz0Ho",
-    name: "Olivia Rodrigo",
+    id: "2NWJexn0kRs",
+    name: "Bossa nova 𓀤",
   },
   {
-    id: "YS8Vi_chlxc",
-    name: "Taylor Swift",
+    id: "sPCSs0dXQNs",
+    name: "Random 1",
   },
   {
-    id: "-SEJBvptqug",
-    name: "King of Convenience",
+    id: "OSC3yUxm-9s",
+    name: "Random 2",
   },
   {
-    id: "imSE0ItyRFc",
-    name: "Japanese Folk",
-  },
-  {
-    id: "Oh9VcdqC5Ok",
-    name: "Japanese Indie",
-  },
-  {
-    id: "LGK3NSrpIVk",
-    name: "summer like bubble gum ‧₊˚",
+    id: "sgSiSnE9Avs",
+    name: "Random 3",
   },
 ];

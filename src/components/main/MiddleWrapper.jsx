@@ -28,17 +28,6 @@ function MiddleWrapper({ isTodoVisible, openTodoList }) {
             <SetBreak></SetBreak>
           </div>
         )}
-        {timer.status !== null && (
-          <div
-            id="timer-wrapper"
-            className="flex h-14 items-end justify-center"
-          >
-            {(timer.status === "countdown" ||
-              timer.status === "countdown ended") && (
-              <CountdownTimer></CountdownTimer>
-            )}
-          </div>
-        )}
       </>
     );
   }

@@ -1,6 +1,7 @@
 import CountdownTimer from "./CountdownTimer";
 import CountdownBreak from "./CountdownBreak";
 import { useTimer } from "../../context/TimerContext";
+import GroupBar from "../post-it/GroupBar";
 
 function Timer() {
   const isLargeScreen = screen.width >= 640;
@@ -15,6 +16,7 @@ function Timer() {
             className="flex h-14 items-end justify-between"
           >
             <CountdownTimer></CountdownTimer>
+            <GroupBar></GroupBar>
             <CountdownBreak></CountdownBreak>
           </div>
         )}
@@ -23,11 +25,18 @@ function Timer() {
   } else {
     return (
       <>
-        {timer.status !== null && (
+        {(timer.status === "break" || timer.status === "break ended") && (
           <div id="timer-wrapper" className="flex h-14 items-end justify-end">
-            {(timer.status === "break" || timer.status === "break ended") && (
-              <CountdownBreak></CountdownBreak>
-            )}
+            <CountdownBreak></CountdownBreak>
+          </div>
+        )}
+        {(timer.status === "countdown" ||
+          timer.status === "countdown ended") && (
+          <div
+            id="timer-wrapper"
+            className="flex h-14 items-end justify-center"
+          >
+            <CountdownTimer></CountdownTimer>
           </div>
         )}
       </>

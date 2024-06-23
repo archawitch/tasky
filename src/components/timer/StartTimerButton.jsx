@@ -28,7 +28,7 @@ function StartTimerButton() {
   return (
     <>
       <button
-        className="z-10"
+        className="z-10 w-[5rem]"
         onClick={() => {
           dispatch({
             type: "START_TIMER",

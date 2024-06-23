@@ -10,7 +10,6 @@ import { useTimer } from "../../context/TimerContext";
 import { useSettings, getBackground } from "../../context/SettingsContext";
 import Choice from "../timer/Choice";
 import Settings from "../preferences/Settings";
-import GroupBar from "../post-it/GroupBar";
 
 function Main() {
   const [isTodoVisible, setIsTodoVisible] = useState(false);
@@ -84,7 +83,6 @@ function Main() {
             closeTodoList={closeTodoList}
           ></TodoList>
         </TodoListProvider>
-        <GroupBar></GroupBar>
       </div>
       {!isSettings && <PostList></PostList>}
       {timer.isPause && !isSettings && <Choice></Choice>}

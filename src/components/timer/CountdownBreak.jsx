@@ -61,21 +61,23 @@ function CountdownBreak() {
   return (
     <>
       {
-        <div
-          onClick={() => {
-            dispatch({
-              type: "TOGGLE_TIMER_STATE",
-              isPause: !timer.isPause,
-            });
-          }}
-          className="z-10 cursor-pointer text-center"
-        >
-          <h3 className="text-xl leading-snug tracking-wider">
-            {remainingMinutes}
-          </h3>
-          <h3 className="text-xl leading-snug tracking-wider">
-            {remainingSeconds}
-          </h3>
+        <div className="flex w-[5rem] items-center justify-end">
+          <div
+            onClick={() => {
+              dispatch({
+                type: "TOGGLE_TIMER_STATE",
+                isPause: !timer.isPause,
+              });
+            }}
+            className="z-10 cursor-pointer text-center"
+          >
+            <h3 className="text-xl leading-snug tracking-wider">
+              {remainingMinutes}
+            </h3>
+            <h3 className="text-xl leading-snug tracking-wider">
+              {remainingSeconds}
+            </h3>
+          </div>
         </div>
       }
       <audio className="hidden" ref={audioRef} src={getAlarmSound(1).url} />

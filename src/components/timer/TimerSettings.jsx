@@ -2,6 +2,7 @@ import SetTimer from "./SetTimer";
 import SetBreak from "./SetBreak";
 import StartTimerButton from "./StartTimerButton";
 import { useTimer } from "../../context/TimerContext";
+import GroupBar from "../post-it/GroupBar";
 
 function TimerSettings() {
   const isLargeScreen = screen.width >= 640;
@@ -15,10 +16,11 @@ function TimerSettings() {
             id="set-break-start-wrapper"
             className="flex h-14 items-end justify-between"
           >
-            <div className="z-10">
+            <div className="z-10 w-[10rem]">
               <SetTimer></SetTimer>
               <SetBreak></SetBreak>
             </div>
+            <GroupBar></GroupBar>
             <StartTimerButton></StartTimerButton>
           </div>
         )}

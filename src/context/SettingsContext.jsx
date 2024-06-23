@@ -63,5 +63,9 @@ export function SettingsProvider({ children }) {
 }
 
 export function getBackground(n) {
-  return `url("/images/bg/yok_${n}.jpeg")`;
+  if (screen.width >= 640) {
+    return `url("/images/bg/bg-${n + 1}.jpg")`;
+  } else {
+    return `url("/images/bg/mobile-bg-${n + 1}.jpg")`;
+  }
 }

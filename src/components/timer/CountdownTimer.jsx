@@ -95,7 +95,7 @@ function CountdownTimer() {
               type: "TOGGLE_TIMER_STATE",
             });
           }}
-          className="z-10 mt-1 cursor-pointer text-4xl tracking-wide"
+          className="z-10 mt-1 w-[10rem] cursor-pointer text-4xl tracking-wide"
         >
           {getCountdown(timeLeft)}
         </span>
