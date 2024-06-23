@@ -26,9 +26,9 @@ function StartTimerButton() {
   }, []);
 
   return (
-    <>
+    <div className="flex w-[10rem] items-center justify-end">
       <button
-        className="z-10 w-[10rem]"
+        className="z-10"
         onClick={() => {
           dispatch({
             type: "START_TIMER",
@@ -40,7 +40,7 @@ function StartTimerButton() {
         <span className="pr-3 text-2xl">start</span>
         <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
       </button>
-    </>
+    </div>
   );
 }
 

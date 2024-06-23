@@ -108,7 +108,7 @@ function DeleteGroupButton({ isHovered }) {
       style={{
         paddingLeft: groups.groups.length === 10 ? "1rem" : null,
       }}
-      className="px-2 py-1 text-xs text-neutral-200 transition-all hover:text-white"
+      className="px-2 py-1 text-xs text-neutral-200 hover:text-white"
     >
       <FontAwesomeIcon icon="fa-solid fa-trash" />
     </button>
