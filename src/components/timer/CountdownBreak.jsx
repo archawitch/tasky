@@ -61,7 +61,7 @@ function CountdownBreak() {
   return (
     <>
       {
-        <div className="flex w-[5rem] items-center justify-end">
+        <div className="flex w-[10rem] items-center justify-end">
           <div
             onClick={() => {
               dispatch({
