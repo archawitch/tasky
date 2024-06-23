@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function OpenTodoButton({ isVisible, openTodoList }) {
+function OpenTodoButton({ openTodoList }) {
   return (
     <>
       <button onClick={openTodoList}>

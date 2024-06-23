@@ -13,12 +13,26 @@ const initialPosts = (() => {
   }
 })();
 
+export function getGroup() {
+  return currentGroup;
+}
+export function setGroup() {
+  return (g) => setCurrentGroup(g);
+}
+export function addNewGroup() {
+  return addGroup;
+}
+export function deleteExistedGroup() {
+  return deleteGroup;
+}
+
 function postReducer(posts, action) {
   switch (action.type) {
     case "ADD_POST":
       return [
         ...posts,
         {
+          groupId: action.groupId,
           id: action.id,
           posX: action.posX + 10,
           posY: action.posY,
@@ -96,6 +110,16 @@ function postReducer(posts, action) {
           return p;
         }
       });
+    case "DELETE_POST_IN_GROUP":
+      return posts
+        .filter((post) => post.groupId !== action.deletedGroup)
+        .map((post) => {
+          if (post.groupId > action.deletedGroup) {
+            return { ...post, groupId: post.groupId - 1 };
+          } else {
+            return post;
+          }
+        });
     default:
       throw new Error("Unknown action: " + action.type);
   }
@@ -114,6 +138,7 @@ export function PostProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem("posts", JSON.stringify(posts));
+    console.log(posts);
   }, [posts]);
 
   return (

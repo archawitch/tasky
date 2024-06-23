@@ -25,7 +25,7 @@ function ChangeBackground({ settings, dispatch }) {
   };
 
   return (
-    <div className="flex w-full items-center justify-between">
+    <div className="mb-2 flex w-full items-center justify-between">
       <button
         onClick={() => {
           dispatch({

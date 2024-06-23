@@ -34,7 +34,7 @@ function SetBreak() {
   }
 
   return (
-    <div className="flex items-center">
+    <div className="z-10 flex items-center">
       <span onClick={increaseIndex} className="cursor-pointer pr-3 text-lg">
         <FontAwesomeIcon icon="fa-solid fa-plus" />
       </span>

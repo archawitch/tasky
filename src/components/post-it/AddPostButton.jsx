@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { usePosts, useDispatchPosts } from "../../context/PostContext";
+import { useGroup } from "../../context/GroupOfPostContext";
 import { useState, useEffect, useRef } from "react";
 
 function AddPostButton() {
   const [nextPostId, setNextPostId] = useState(0);
   const refAddPost = useRef(null);
   const posts = usePosts();
+  const groups = useGroup();
   const dispatch = useDispatchPosts();
 
   useEffect(() => {
@@ -24,6 +26,7 @@ function AddPostButton() {
         // add the post
         dispatch({
           type: "ADD_POST",
+          groupId: groups.currentGroup,
           id: nextPostId,
           posX: position.right,
           posY: position.top,

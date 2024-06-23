@@ -8,7 +8,10 @@ function ControlPanel({
   isPlaying,
 }) {
   return (
-    <div className="mt-[0.1rem] flex">
+    <div
+      onClick={(event) => event.stopPropagation()}
+      className="mt-[0.1rem] flex"
+    >
       <button
         onKeyDown={(event) => event.target.blur()}
         onClick={handleBackward}

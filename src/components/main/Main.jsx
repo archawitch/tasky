@@ -10,6 +10,7 @@ import { useTimer } from "../../context/TimerContext";
 import { useSettings, getBackground } from "../../context/SettingsContext";
 import Choice from "../timer/Choice";
 import Settings from "../preferences/Settings";
+import GroupBar from "../post-it/GroupBar";
 
 function Main() {
   const [isTodoVisible, setIsTodoVisible] = useState(false);
@@ -62,7 +63,7 @@ function Main() {
           style={{
             width: isTodoVisible ? "auto" : "100%",
           }}
-          className="flex h-full flex-grow flex-col justify-between p-4 pb-5 sm:px-[3rem] sm:py-[2.4rem]"
+          className="flex h-full flex-grow flex-col justify-between p-5 sm:px-[3rem] sm:py-[2.4rem]"
         >
           <TopWrapper
             isTodoVisible={isTodoVisible}
@@ -83,6 +84,7 @@ function Main() {
             closeTodoList={closeTodoList}
           ></TodoList>
         </TodoListProvider>
+        <GroupBar></GroupBar>
       </div>
       {!isSettings && <PostList></PostList>}
       {timer.isPause && !isSettings && <Choice></Choice>}

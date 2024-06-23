@@ -33,7 +33,7 @@ function SetTimer() {
   }
 
   return (
-    <div id="set-timer-wrapper" className="mb-1 flex items-center text-lg">
+    <div id="set-timer-wrapper" className="z-10 mb-1 flex items-center text-lg">
       <span onClick={increaseMinutes} className="cursor-pointer pr-3">
         <FontAwesomeIcon icon="fa-solid fa-plus" />
       </span>

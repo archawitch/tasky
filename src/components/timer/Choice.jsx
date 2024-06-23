@@ -34,11 +34,20 @@ function Choice() {
   return (
     <div
       id="choice-wrapper"
+      onClick={(event) => {
+        event.stopPropagation();
+        if (timer.status === "countdown" || timer.status === "break") {
+          dispatch({
+            type: "TOGGLE_TIMER_STATE",
+          });
+        }
+      }}
       className="absolute left-0 top-0 z-50 flex h-full w-full flex-col items-center justify-center bg-black/35"
     >
       {timer.status === "countdown" && (
         <button
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
             dispatch({
               type: "RESUME_TIMER",
             });
@@ -50,7 +59,8 @@ function Choice() {
       )}
       {timer.status === "countdown ended" && (
         <button
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
             // start the break
             dispatch({
               type: "START_BREAK",
@@ -63,7 +73,8 @@ function Choice() {
       )}
       {timer.status !== "countdown" && (
         <button
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
             dispatch({
               type: "START_TIMER",
               countdownMinutes: timer.countdownMinutes,
@@ -76,7 +87,8 @@ function Choice() {
         </button>
       )}
       <button
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           dispatch({
             type: "END_SESSION",
           });

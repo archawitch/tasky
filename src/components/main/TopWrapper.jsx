@@ -9,19 +9,21 @@ function TopWrapper({
   openTodoList,
   openSettings,
 }) {
+  const isLargeScreen = screen.width > 576 ? true : false;
+
   return (
-    <div className="flex h-14 items-center justify-between">
+    <div className="flex h-14 items-start justify-between">
       <Clock></Clock>
-      <MusicPlayer></MusicPlayer>
+      {isLargeScreen && <MusicPlayer></MusicPlayer>}
       <SettingsButton
         openSettings={openSettings}
         isTimerCountdown={isTimerCountdown}
       ></SettingsButton>
-      <div className="block pt-[0.5rem] md:hidden">
-        {!isTodoVisible && (
+      {(!isTodoVisible || !isLargeScreen) && (
+        <div className="order-1 pt-[0.5rem] sm:order-2 md:hidden">
           <OpenTodoButton openTodoList={openTodoList}></OpenTodoButton>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -4,24 +4,41 @@ import StartTimerButton from "./StartTimerButton";
 import { useTimer } from "../../context/TimerContext";
 
 function TimerSettings() {
+  const isLargeScreen = screen.width >= 640;
   const timer = useTimer();
 
-  return (
-    <>
-      {!(timer.isCountdown || timer.isBreak || timer.isPause) && (
-        <div
-          id="set-break-start-wrapper"
-          className="flex h-14 items-end justify-between"
-        >
-          <div>
-            <SetTimer></SetTimer>
-            <SetBreak></SetBreak>
+  if (isLargeScreen) {
+    return (
+      <>
+        {timer.status === null && (
+          <div
+            id="set-break-start-wrapper"
+            className="flex h-14 items-end justify-between"
+          >
+            <div className="z-10">
+              <SetTimer></SetTimer>
+              <SetBreak></SetBreak>
+            </div>
+            <StartTimerButton></StartTimerButton>
           </div>
-          <StartTimerButton></StartTimerButton>
-        </div>
-      )}
-    </>
-  );
+        )}
+      </>
+    );
+  } else {
+    // timer and break settings are in the MiddleWrapper
+    return (
+      <>
+        {timer.status === null && (
+          <div
+            id="set-break-start-wrapper"
+            className="flex h-14 items-end justify-end"
+          >
+            <StartTimerButton></StartTimerButton>
+          </div>
+        )}
+      </>
+    );
+  }
 }
 
 export default TimerSettings;

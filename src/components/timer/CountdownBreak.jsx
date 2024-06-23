@@ -68,7 +68,7 @@ function CountdownBreak() {
               isPause: !timer.isPause,
             });
           }}
-          className="cursor-pointer text-center"
+          className="z-10 cursor-pointer text-center"
         >
           <h3 className="text-xl leading-snug tracking-wider">
             {remainingMinutes}
