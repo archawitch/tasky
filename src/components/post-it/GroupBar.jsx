@@ -3,41 +3,28 @@ import { useGroup, useDispatchGroup } from "../../context/GroupOfPostContext";
 import { useState } from "react";
 import { useDispatchPosts } from "../../context/PostContext";
 
-function GroupBar() {
-  const [isHovered, setIsHovered] = useState(false);
+function GroupBar({ isTodoVisible }) {
   const groups = useGroup();
   const groupsItems = groups.groups;
-  const dispatchGroup = useDispatchGroup();
-  const dispatchPosts = useDispatchPosts();
 
   return (
-    <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="flex items-center justify-center transition-all duration-200"
-    >
-      {groupsItems &&
-        groupsItems.length > 0 &&
-        groupsItems.map((group) => {
-          return (
-            <GroupItem
-              key={group}
-              group={group}
-              isGroupHovered={isHovered}
-            ></GroupItem>
-          );
-        })}
-      {groupsItems.length < 10 && (
-        <AddGroupButton isHovered={isHovered}></AddGroupButton>
+    <>
+      {!isTodoVisible && (
+        <div className="flex items-center justify-center overflow-clip transition-all duration-200">
+          {groupsItems &&
+            groupsItems.length > 0 &&
+            groupsItems.map((group) => {
+              return <GroupItem key={group} group={group}></GroupItem>;
+            })}
+          {groupsItems.length < 10 && <AddGroupButton></AddGroupButton>}
+          {groupsItems.length > 1 && <DeleteGroupButton></DeleteGroupButton>}
+        </div>
       )}
-      {groupsItems.length > 1 && (
-        <DeleteGroupButton isHovered={isHovered}></DeleteGroupButton>
-      )}
-    </div>
+    </>
   );
 }
 
-function GroupItem({ group, isGroupHovered }) {
+function GroupItem({ group }) {
   const [isHovered, setIsHovered] = useState(false);
   const groups = useGroup();
   const dispatch = useDispatchGroup();
@@ -68,7 +55,7 @@ function GroupItem({ group, isGroupHovered }) {
   );
 }
 
-function AddGroupButton({ isHovered }) {
+function AddGroupButton() {
   const dispatch = useDispatchGroup();
 
   return (
@@ -87,7 +74,7 @@ function AddGroupButton({ isHovered }) {
   );
 }
 
-function DeleteGroupButton({ isHovered }) {
+function DeleteGroupButton() {
   const groups = useGroup();
   const dispatchGroup = useDispatchGroup();
   const dispatchPosts = useDispatchPosts();

@@ -4,7 +4,7 @@ import StartTimerButton from "./StartTimerButton";
 import { useTimer } from "../../context/TimerContext";
 import GroupBar from "../post-it/GroupBar";
 
-function TimerSettings() {
+function TimerSettings({ isTodoVisible }) {
   const isLargeScreen = screen.width >= 640;
   const timer = useTimer();
 
@@ -20,7 +20,7 @@ function TimerSettings() {
               <SetTimer></SetTimer>
               <SetBreak></SetBreak>
             </div>
-            <GroupBar></GroupBar>
+            <GroupBar isTodoVisible={isTodoVisible}></GroupBar>
             <StartTimerButton></StartTimerButton>
           </div>
         )}

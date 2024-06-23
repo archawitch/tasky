@@ -3,7 +3,7 @@ import CountdownBreak from "./CountdownBreak";
 import { useTimer } from "../../context/TimerContext";
 import GroupBar from "../post-it/GroupBar";
 
-function Timer() {
+function Timer({ isTodoVisible }) {
   const isLargeScreen = screen.width >= 640;
   const timer = useTimer();
 
@@ -16,7 +16,7 @@ function Timer() {
             className="flex h-14 items-end justify-between"
           >
             <CountdownTimer></CountdownTimer>
-            <GroupBar></GroupBar>
+            <GroupBar isTodoVisible={isTodoVisible}></GroupBar>
             <CountdownBreak></CountdownBreak>
           </div>
         )}

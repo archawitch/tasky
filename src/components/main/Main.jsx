@@ -74,8 +74,8 @@ function Main() {
             isTodoVisible={isTodoVisible}
             openTodoList={openTodoList}
           ></MiddleWrapper>
-          <Timer></Timer>
-          <TimerSettings></TimerSettings>
+          <Timer isTodoVisible={isTodoVisible}></Timer>
+          <TimerSettings isTodoVisible={isTodoVisible}></TimerSettings>
         </div>
         <TodoListProvider>
           <TodoList
