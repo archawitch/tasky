@@ -6,6 +6,7 @@ import { PostProvider } from "./context/PostContext";
 import { TimerProvider } from "./context/TimerContext";
 import { SettingsProvider } from "./context/SettingsContext";
 import { GroupProvider } from "./context/GroupOfPostContext";
+import { ActivityProvider } from "./context/ActivityCalendarContext";
 import { useEffect } from "react";
 
 function App() {
@@ -26,11 +27,13 @@ function App() {
       <TimerProvider>
         <GroupProvider>
           <PostProvider>
-            <PreventSleep>
-              <FullScreen>
-                <Main></Main>
-              </FullScreen>
-            </PreventSleep>
+            <ActivityProvider>
+              <PreventSleep>
+                <FullScreen>
+                  <Main></Main>
+                </FullScreen>
+              </PreventSleep>
+            </ActivityProvider>
           </PostProvider>
         </GroupProvider>
       </TimerProvider>

@@ -10,10 +10,12 @@ import { useTimer } from "../../context/TimerContext";
 import { useSettings, getBackground } from "../../context/SettingsContext";
 import Choice from "../timer/Choice";
 import Settings from "../preferences/Settings";
+import Activity from "../activity-calendar/Activity";
 
 function Main() {
   const [isTodoVisible, setIsTodoVisible] = useState(false);
   const [isSettings, setIsSettings] = useState(false);
+  const [isStats, setIsStats] = useState(false);
   const timer = useTimer();
   const settings = useSettings();
 
@@ -30,6 +32,12 @@ function Main() {
   };
   const closeSettings = () => {
     setIsSettings(false);
+  };
+  const openStats = () => {
+    setIsStats(true);
+  };
+  const closeStats = () => {
+    setIsStats(false);
   };
 
   useEffect(() => {
@@ -54,7 +62,7 @@ function Main() {
       <div
         id="main"
         style={{
-          display: isSettings ? "none" : "flex",
+          display: isSettings || isStats ? "none" : "flex",
         }}
         className="flex h-full"
       >
@@ -69,6 +77,7 @@ function Main() {
             isTimerCountdown={timer.isCountdown}
             openTodoList={openTodoList}
             openSettings={openSettings}
+            openStats={openStats}
           ></TopWrapper>
           <MiddleWrapper
             isTodoVisible={isTodoVisible}
@@ -84,11 +93,12 @@ function Main() {
           ></TodoList>
         </TodoListProvider>
       </div>
-      {!isSettings && <PostList></PostList>}
-      {timer.isPause && !isSettings && <Choice></Choice>}
+      {!isSettings && !isStats && <PostList></PostList>}
+      {timer.isPause && !isSettings && !isStats && <Choice></Choice>}
       {isSettings && (
         <Settings isVisible={isSettings} closeSettings={closeSettings} />
       )}
+      {isStats && <Activity isVisible={isStats} closeStats={closeStats} />}
     </>
   );
 }

@@ -138,7 +138,6 @@ export function PostProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem("posts", JSON.stringify(posts));
-    console.log(posts);
   }, [posts]);
 
   return (

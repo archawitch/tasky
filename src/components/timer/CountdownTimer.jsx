@@ -1,10 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import { useTimer, useDispatchTimer } from "../../context/TimerContext";
+import {
+  useDispatchActivity,
+  DateToString,
+} from "../../context/ActivityCalendarContext";
 import { getAlarmSound } from "../../utils/utils";
 
 function CountdownTimer() {
   const timer = useTimer();
   const dispatch = useDispatchTimer();
+  const dispatchActivity = useDispatchActivity();
   const audioRef = useRef(null);
   const refInterval = useRef(null);
   const isLargeScreen = screen.width > 576;
@@ -38,6 +43,14 @@ function CountdownTimer() {
           // dispatch to end the timer
           dispatch({
             type: "TIMER_END",
+          });
+          // update focus stats
+          dispatchActivity({
+            type: "ADD_NEW_ENTRY",
+            activity: {
+              date: DateToString(new Date(Date.now())),
+              spent: timer.countdownMinutes,
+            },
           });
           // play the alert sound
           if (elapsedTime <= timer.countdownMinutes * 60 + 2) {

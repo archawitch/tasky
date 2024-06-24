@@ -64,7 +64,6 @@ export function GroupProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem("groups", JSON.stringify(groups));
-    console.log(groups);
   }, [groups]);
 
   return (
@@ -74,14 +73,4 @@ export function GroupProvider({ children }) {
       </GroupDispatchContext.Provider>
     </GroupContext.Provider>
   );
-}
-
-export function getCurrentGroup() {
-  return currentGroup;
-}
-
-export function setCurrentGroup(selectedGroup) {
-  if (currentGroup !== selectedGroup) {
-    currentGroup = selectedGroup;
-  }
 }

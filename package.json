@@ -17,10 +17,12 @@
     "@fortawesome/react-fontawesome": "^0.2.1",
     "classnames": "^2.5.1",
     "react": "^18.2.0",
+    "react-activity-calendar": "^2.2.11",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6",
     "react-fast-marquee": "^1.6.4",
     "react-resizable": "^3.0.5",
+    "react-tooltip": "^5.27.0",
     "react-transition-group": "^4.4.5",
     "react-youtube": "^10.1.0"
   },

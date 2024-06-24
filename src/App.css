@@ -21,6 +21,15 @@ body,
   background-size: cover;
 }
 
+button {
+  transition-property: color;
+  transition-duration: 0.15s;
+}
+
+button:hover:not(:disabled) {
+  color: rgb(229 229 229);
+}
+
 .scrollable {
   -ms-overflow-style: none; /* for Internet Explorer, Edge */
   scrollbar-width: none; /* for Firefox */

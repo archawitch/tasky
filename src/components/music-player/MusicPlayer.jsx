@@ -70,7 +70,6 @@ function MusicPlayer() {
   useEffect(() => {
     if (currentIndex >= 0) {
       localStorage.setItem("selectedRadio", currentIndex);
-      console.log(currentIndex);
     }
   }, [currentIndex]);
 
@@ -191,7 +190,6 @@ function MusicPlayer() {
   useEffect(() => {
     if (radios) {
       localStorage.setItem("radios", JSON.stringify(radios));
-      console.log(radios);
     }
   }, [radios]);
 
