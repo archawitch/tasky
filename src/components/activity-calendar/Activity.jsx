@@ -115,8 +115,9 @@ function Activity({ closeStats }) {
         <Tooltip
           id="react-tooltip"
           style={{
-            fontSize: "0.65rem",
+            fontSize: "0.6rem",
             letterSpacing: "0",
+            fontWeight: "normal",
           }}
           className="text-xs tracking-normal"
         ></Tooltip>

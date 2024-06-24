@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function CloseButton({ post, dispatch }) {
   return (
     <button
-      className="ml-auto text-sm text-gray-500"
+      className="hover:! ml-auto text-sm text-gray-500 hover:!text-gray-700"
       onClick={() => {
         dispatch({
           type: "DELETE_POST",

@@ -4,7 +4,7 @@ function ChangeAlignment({ post, dispatch }) {
   return (
     <>
       <button
-        className="mt-[0.2rem] px-[0.33rem] text-[0.65rem] text-gray-500 transition-colors duration-300 hover:text-gray-700"
+        className="mt-[0.2rem] px-[0.33rem] text-[0.65rem] text-gray-500 transition-colors duration-300 hover:!text-gray-700"
         onClick={() => {
           dispatch({
             type: "SET_ALIGNMENT",
@@ -16,7 +16,7 @@ function ChangeAlignment({ post, dispatch }) {
         <FontAwesomeIcon icon="fa-solid fa-align-left" />
       </button>
       <button
-        className="mt-[0.2rem] px-[0.33rem] text-[0.65rem] text-gray-500 transition-colors duration-300 hover:text-gray-700"
+        className="mt-[0.2rem] px-[0.33rem] text-[0.65rem] text-gray-500 transition-colors duration-300 hover:!text-gray-700"
         onClick={() => {
           dispatch({
             type: "SET_ALIGNMENT",
@@ -28,7 +28,7 @@ function ChangeAlignment({ post, dispatch }) {
         <FontAwesomeIcon icon="fa-solid fa-align-center" />
       </button>
       <button
-        className="mt-[0.2rem] px-[0.33rem] text-[0.65rem] text-gray-500 transition-colors duration-300 hover:text-gray-700"
+        className="mt-[0.2rem] px-[0.33rem] text-[0.65rem] text-gray-500 transition-colors duration-300 hover:!text-gray-700"
         onClick={() => {
           dispatch({
             type: "SET_ALIGNMENT",

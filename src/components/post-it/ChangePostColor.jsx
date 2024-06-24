@@ -16,7 +16,7 @@ function ChangePostColor({ post, dispatch }) {
         border: "1px solid gray",
         backgroundColor: getPostColor(post.nextBackgroundColor),
       }}
-      className="m-0 mr-1 p-0"
+      className="m-0 p-0"
     ></button>
   );
 }
