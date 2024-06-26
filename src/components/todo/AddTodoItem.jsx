@@ -1,9 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatchTodoList } from "../../context/TodoListContext";
+import { useSettings } from "../../context/SettingsContext";
 
 function AddTodoItem() {
-  const placeholder = "Add a task";
+  const settings = useSettings();
+  const [placeholder, setPlaceholder] = useState(
+    settings.lang === "EN" ? "Add a task" : "เพิ่มงาน",
+  );
   const [text, setText] = useState(placeholder);
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null);
@@ -20,8 +24,17 @@ function AddTodoItem() {
     }
   }
 
+  useEffect(() => {
+    setPlaceholder(settings.lang === "EN" ? "Add a task" : "เพิ่มงาน");
+    if (settings.lang === "TH" && text === "Add a task") {
+      setText("เพิ่มงาน");
+    } else if (settings.lang === "EN" && text === "เพิ่มงาน") {
+      setText("Add a task");
+    }
+  }, [settings.lang]);
+
   return (
-    <div className="absolute bottom-0 mb-6 flex w-full px-6 sm:mb-[2.4rem]">
+    <div className="absolute bottom-0 mb-7 flex w-full px-6 sm:mb-[2.4rem]">
       <div className="flex w-full rounded-lg border-[3px] border-white">
         <input
           style={{

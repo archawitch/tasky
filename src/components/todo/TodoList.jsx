@@ -1,13 +1,17 @@
 import "../../styles/todo.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTodoList } from "../../context/TodoListContext";
+import { useSettings } from "../../context/SettingsContext";
 import AddTodoItem from "./AddTodoItem";
 import TodoItem from "./TodoItem";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { useEffect, useState } from "react";
+import { hexToRgba } from "../../utils/utils";
 
 function TodoList({ isVisible, closeTodoList }) {
   const todoList = useTodoList();
+  const settings = useSettings();
+  const todoColor = settings.selectedTodoColor;
 
   const [width, setWidth] = useState(0);
 
@@ -26,8 +30,12 @@ function TodoList({ isVisible, closeTodoList }) {
       <div
         style={{
           width: width,
+          backgroundColor:
+            screen.width >= 640
+              ? hexToRgba(todoColor, 0.9)
+              : hexToRgba(todoColor, 1),
         }}
-        className="absolute z-50 flex h-full overflow-clip bg-[#66676B] text-[0.8rem] font-medium transition-all duration-500 sm:relative sm:bg-[#66676B]/90"
+        className="absolute z-50 flex h-full overflow-clip text-[0.8rem] font-medium transition-all duration-500 sm:relative"
       >
         <div
           style={{

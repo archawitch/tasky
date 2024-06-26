@@ -1,16 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
-function Radio({
-  index,
-  visible,
-  radio,
-  selectedRadio,
-  changeRadio,
-  deleteRadio,
-}) {
+function Radio({ index, visible, radio, changeRadio, deleteRadio }) {
   const [isHovered, setIsHovered] = useState(false);
-  const firstIndex = selectedRadio === 0 ? 1 : 0;
 
   return (
     <div
@@ -27,7 +19,7 @@ function Radio({
         setIsHovered(false);
       }}
       style={{
-        paddingTop: index === firstIndex ? "0.75rem" : null,
+        order: radio.id,
       }}
       className="flex w-full cursor-pointer items-center justify-center pt-2"
     >

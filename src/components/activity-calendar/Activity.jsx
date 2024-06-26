@@ -1,14 +1,16 @@
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ActivityCalendar from "react-activity-calendar";
+import { useEffect, useState } from "react";
+import { Tooltip } from "react-tooltip";
 import {
   useActivity,
   DateToString,
 } from "../../context/ActivityCalendarContext";
-import ActivityCalendar from "react-activity-calendar";
-import { useEffect, useState } from "react";
-import { Tooltip } from "react-tooltip";
-import React from "react";
+import { useSettings } from "../../context/SettingsContext";
 
 function Activity({ closeStats }) {
+  const settings = useSettings();
   const [isLoading, setIsLoading] = useState(true);
   const { s_now, s_lastDate } = getDateInfo();
   const [data, setData] = useState([
@@ -36,6 +38,22 @@ function Activity({ closeStats }) {
     let s_now = DateToString(today);
     let s_lastDate = DateToString(lastDate);
     return { today, lastDate, s_now, s_lastDate };
+  }
+
+  function getBlockLabel(activity) {
+    if (settings.lang == "EN") {
+      const mins = `${activity.count % 60} ${activity.count % 60 === 1 ? "min" : "mins"}`;
+      const hours =
+        activity.count >= 60
+          ? `${Math.floor(activity.count / 60)} ${activity.count / 60 >= 2 ? "hrs" : "hr"}`
+          : "";
+      return `${hours} ${mins} on ${activity.date}`.trim();
+    } else {
+      const mins = `${activity.count % 60} นาที`;
+      const hours =
+        activity.count >= 60 ? `${Math.floor(activity.count / 60)} ชม` : "";
+      return `${hours} ${mins} เมื่อ ${activity.date}`.trim();
+    }
   }
 
   useEffect(() => {
@@ -98,19 +116,13 @@ function Activity({ closeStats }) {
           theme={{
             dark: ["hsl(0, 0%, 22%)", "hsl(225,92%,77%)"],
           }}
-          labels={{ totalCount: "{{count}} minutes last year" }}
-          renderBlock={(block, activity) => {
-            const mins = `${activity.count % 60} mins`;
-            const hours =
-              activity.count >= 60
-                ? `${Math.floor(activity.count / 60)} ${activity.count / 60 >= 2 ? "hrs" : "hr"}`
-                : "";
-            return React.cloneElement(block, {
+          labels={settings.lang === "EN" ? en_label : th_label}
+          renderBlock={(block, activity) =>
+            React.cloneElement(block, {
               "data-tooltip-id": "react-tooltip",
-              "data-tooltip-html":
-                `${hours} ${mins} on ${activity.date}`.trim(),
-            });
-          }}
+              "data-tooltip-html": getBlockLabel(activity),
+            })
+          }
         ></ActivityCalendar>
         <Tooltip
           id="react-tooltip"
@@ -127,3 +139,29 @@ function Activity({ closeStats }) {
 }
 
 export default Activity;
+
+const th_label = {
+  months: [
+    "ม.ค",
+    "ก.พ",
+    "มี.ค",
+    "เม.ย",
+    "พ.ค",
+    "มิ.ย",
+    "ก.ค",
+    "ส.ค",
+    "ก.ย",
+    "ต.ค",
+    "พ.ย",
+    "ธ.ค",
+  ],
+  totalCount: "คุณโฟกัสไป {{count}} นาทีนับจากปีที่แล้ว",
+  legend: {
+    less: "น้อย",
+    more: "มาก",
+  },
+};
+
+const en_label = {
+  totalCount: "{{count}} minutes last year",
+};

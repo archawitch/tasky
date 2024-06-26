@@ -15,10 +15,6 @@
 }
 
 .round label:after {
-  border-width: 3px;
-  border-style: solid;
-  border-top: none;
-  border-right: none;
   content: "";
   height: 6px;
   left: 0.25rem;

@@ -4,7 +4,7 @@ function SettingsButton({ isTimerCountdown, openSettings }) {
   return (
     <button
       onClick={openSettings}
-      className="material-symbols-outlined order-2 text-2xl"
+      className="material-symbols-outlined text-2xl"
       disabled={isTimerCountdown}
     >
       <FontAwesomeIcon icon="fa-solid fa-gear" />

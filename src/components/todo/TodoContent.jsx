@@ -64,8 +64,10 @@ function TodoContent({
           event.stopPropagation();
           if (event.code === "Enter" && event.target.value.trim() !== "") {
             setIsEditing(false);
-            if (todoType === "subTodo") {
-              const newTaskName = event.target.value;
+            const newTaskName = event.target.value;
+            if (todoType === "todo") {
+              renameTask(newTaskName);
+            } else if (todoType === "subTodo") {
               renameSubTask(newTaskName);
               addSubTask();
             }

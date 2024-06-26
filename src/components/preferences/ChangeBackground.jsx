@@ -40,7 +40,9 @@ function ChangeBackground({ settings, dispatch }) {
       >
         <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
       </button>
-      <button onClick={() => fileRef.current.click()}>Change background</button>
+      <button onClick={() => fileRef.current.click()}>
+        {settings.lang === "EN" ? "Change background" : "เปลี่ยนพื้นหลัง"}
+      </button>
       <input
         ref={fileRef}
         onChange={changeBackground}

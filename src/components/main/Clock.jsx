@@ -1,40 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSettings } from "../../context/SettingsContext";
 
 function Clock() {
+  const refInterval = useRef(null);
   const [time, setTime] = useState(["", ""]);
-  const engMonths = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const thaiMonths = [
-    "ม.ค",
-    "ก.พ",
-    "มี.ค",
-    "เม.ย",
-    "พ.ค",
-    "มิ.ย",
-    "ก.ค",
-    "ส.ค",
-    "ก.ย",
-    "ต.ค",
-    "พ.ย",
-    "ธ.ค",
-  ];
+  const settings = useSettings();
+  const lang = settings.lang;
 
   function setClock() {
     const now = new Date();
     const date = now.getDate().toString().padStart(2, "0");
-    const month = engMonths[now.getMonth()];
+    const month =
+      lang === "EN" ? engMonths[now.getMonth()] : thaiMonths[now.getMonth()];
     const year = now.getFullYear();
     const hour = now.getHours().toString().padStart(2, "0");
     const minute = now.getMinutes().toString().padStart(2, "0");
@@ -48,10 +25,16 @@ function Clock() {
     // initial clock setup
     setClock();
     // set clock on every second
-    setInterval(() => {
+    refInterval.current = setInterval(() => {
       setClock();
     }, 1000);
-  }, []);
+
+    return () => {
+      if (refInterval.current) {
+        clearInterval(refInterval.current);
+      }
+    };
+  }, [lang]);
 
   return (
     <div className="hidden md:block">
@@ -62,3 +45,32 @@ function Clock() {
 }
 
 export default Clock;
+
+const engMonths = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const thaiMonths = [
+  "ม.ค",
+  "ก.พ",
+  "มี.ค",
+  "เม.ย",
+  "พ.ค",
+  "มิ.ย",
+  "ก.ค",
+  "ส.ค",
+  "ก.ย",
+  "ต.ค",
+  "พ.ย",
+  "ธ.ค",
+];

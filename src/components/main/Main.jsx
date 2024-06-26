@@ -70,10 +70,9 @@ function Main() {
           style={{
             width: isTodoVisible ? "auto" : "100%",
           }}
-          className="flex h-full flex-grow flex-col justify-between p-5 sm:px-[3rem] sm:py-[2.4rem]"
+          className="flex h-full flex-grow flex-col justify-between p-5 pb-6 sm:px-[3rem] sm:py-[2.4rem]"
         >
           <TopWrapper
-            isTodoVisible={isTodoVisible}
             isTimerCountdown={timer.isCountdown}
             openTodoList={openTodoList}
             openSettings={openSettings}

@@ -248,6 +248,7 @@ function MusicPlayer() {
           style={{
             opacity: isRadioOpened ? "1" : "0",
             marginTop: isRadioOpened ? "0.25rem" : "0",
+            marginBottom: isRadioOpened ? "0.25rem" : "0",
             transitionDelay: isRadioOpened ? "150ms" : "0ms",
             transitionDuration: isRadioOpened ? "150ms" : "0ms",
           }}
@@ -292,11 +293,11 @@ const providedRadios = [
     name: "Lofi hip hop ♫",
   },
   {
-    id: "3tQs6l4d8hM",
+    id: "mIYzp5rcTvU",
     name: "Classical 𝄞⨾𓍢ִ໋",
   },
   {
-    id: "0vSifZ4jprA",
+    id: "Dx5qFachd3A",
     name: "Jazz ☕︎",
   },
   {

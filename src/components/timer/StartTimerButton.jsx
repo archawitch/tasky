@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTimer, useDispatchTimer } from "../../context/TimerContext";
+import { useSettings } from "../../context/SettingsContext";
 import { useEffect } from "react";
 
 function StartTimerButton() {
+  const settings = useSettings();
   const timer = useTimer();
   const dispatch = useDispatchTimer();
 
@@ -37,7 +39,9 @@ function StartTimerButton() {
           });
         }}
       >
-        <span className="pr-3 text-2xl">start</span>
+        <span className="pr-3 text-2xl">
+          {settings.lang === "EN" ? "start" : "เริ่ม"}
+        </span>
         <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
       </button>
     </div>
