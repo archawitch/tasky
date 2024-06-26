@@ -78,7 +78,6 @@ export function SettingsProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem("settings", JSON.stringify(settings));
-    console.log(settings.todoColor);
   }, [settings]);
 
   return (

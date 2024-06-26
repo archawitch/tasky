@@ -300,20 +300,4 @@ const providedRadios = [
     id: "Dx5qFachd3A",
     name: "Jazz ☕︎",
   },
-  {
-    id: "2NWJexn0kRs",
-    name: "Bossa nova 𓀤",
-  },
-  {
-    id: "sPCSs0dXQNs",
-    name: "Random 1",
-  },
-  {
-    id: "OSC3yUxm-9s",
-    name: "Random 2",
-  },
-  {
-    id: "sgSiSnE9Avs",
-    name: "Random 3",
-  },
 ];
