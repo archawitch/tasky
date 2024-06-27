@@ -6,14 +6,13 @@
 @tailwind utilities;
 
 :root {
-  font-family: Prompt, system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 600;
   font-size: 24px;
-
-  color-scheme: light dark;
-  color: white;
-  background-color: black;
+}
+body {
+  font-family: "Prompt", system-ui, sans-serif;
+  font-size: 1rem;
 
   width: 100dvw;
   height: 100dvh;
@@ -22,4 +21,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  color-scheme: light dark;
+  color: white;
+  background-color: black;
 }

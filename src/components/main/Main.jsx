@@ -64,7 +64,7 @@ function Main() {
         style={{
           display: isSettings || isStats ? "none" : "flex",
         }}
-        className="flex h-full"
+        className="flex h-full w-full"
       >
         <div
           style={{

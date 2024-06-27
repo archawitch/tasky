@@ -7,10 +7,13 @@ import { TimerProvider } from "./context/TimerContext";
 import { SettingsProvider } from "./context/SettingsContext";
 import { GroupProvider } from "./context/GroupOfPostContext";
 import { ActivityProvider } from "./context/ActivityCalendarContext";
-import { useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 
 function App() {
   const isLargerScreen = screen.availWidth > 576;
+
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     if (isLargerScreen) {
       const preventDefaultOnDrag = (event) => {
@@ -20,24 +23,35 @@ function App() {
       document.body.addEventListener("dragover", preventDefaultOnDrag);
       document.body.style.overflow = "clip";
     }
+
+    setIsLoading(false);
   }, []);
 
   return (
-    <SettingsProvider>
-      <TimerProvider>
-        <GroupProvider>
-          <PostProvider>
-            <ActivityProvider>
-              <PreventSleep>
-                <FullScreen>
-                  <Main></Main>
-                </FullScreen>
-              </PreventSleep>
-            </ActivityProvider>
-          </PostProvider>
-        </GroupProvider>
-      </TimerProvider>
-    </SettingsProvider>
+    <Suspense fallback={<div className="h-full w-full bg-black"></div>}>
+      <SettingsProvider>
+        <TimerProvider>
+          <GroupProvider>
+            <PostProvider>
+              <ActivityProvider>
+                <PreventSleep>
+                  <div
+                    style={{
+                      opacity: isLoading ? "0" : "1",
+                    }}
+                    className="flex h-full w-full transition-opacity duration-500"
+                  >
+                    <FullScreen>
+                      <Main></Main>
+                    </FullScreen>
+                  </div>
+                </PreventSleep>
+              </ActivityProvider>
+            </PostProvider>
+          </GroupProvider>
+        </TimerProvider>
+      </SettingsProvider>
+    </Suspense>
   );
 }
 

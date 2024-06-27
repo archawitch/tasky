@@ -12,7 +12,7 @@ function CountdownBreak() {
     let handleKeydown;
     if (timer.isBreak) {
       const now = Math.floor(new Date(Date.now()) / 1000);
-      let breakElapsed = now - (timer.breakStartAt + timer.pauseTime);
+      let breakElapsed = now - timer.breakStartAt;
       const isEnded = breakElapsed >= timer.breakMinutes * 60;
       if (isEnded) {
         if (breakElapsed <= timer.breakMinutes * 60 + 2) {

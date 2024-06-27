@@ -7,6 +7,7 @@ import TodoItem from "./TodoItem";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { useEffect, useState } from "react";
 import { hexToRgba } from "../../utils/utils";
+import CloseTodoListButton from "./CloseTodoListButton";
 
 function TodoList({ isVisible, closeTodoList }) {
   const todoList = useTodoList();
@@ -52,12 +53,9 @@ function TodoList({ isVisible, closeTodoList }) {
             })}
           </TransitionGroup>
           <AddTodoItem></AddTodoItem>
-          <button
-            onClick={closeTodoList}
-            className="absolute left-[0.4rem] top-[0.2rem] text-lg text-neutral-200"
-          >
-            <FontAwesomeIcon icon="fa-solid fa-caret-right" />
-          </button>
+          <CloseTodoListButton
+            closeTodoList={closeTodoList}
+          ></CloseTodoListButton>
         </div>
       </div>
     </>

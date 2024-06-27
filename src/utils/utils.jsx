@@ -6,8 +6,8 @@ export function getAlarmSound(index) {
 }
 
 export function hexToRgba(hex, opacity) {
-  if (hex === "transparent") {
-    return hex;
+  if (!hex || hex === "transparent") {
+    return "transparent";
   }
 
   // Remove the hash at the start if it's there

@@ -27,7 +27,6 @@ function TimerSettings({ isTodoVisible }) {
       </>
     );
   } else {
-    // timer and break settings are in the MiddleWrapper
     return (
       <>
         {timer.status === null && (

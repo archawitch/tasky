@@ -65,7 +65,7 @@ function FullScreen({ children }) {
   }, []);
 
   return (
-    <div id="background" className="h-full" ref={ref}>
+    <div id="background" className="h-full w-full" ref={ref}>
       <div className="absolute right-0 hidden text-[0.6rem] opacity-0 transition-all delay-75 sm:block sm:hover:opacity-100">
         {!isFullScreen ? (
           <button onClick={requestFullScreen}>

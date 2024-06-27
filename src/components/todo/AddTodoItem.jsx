@@ -40,7 +40,7 @@ function AddTodoItem() {
           style={{
             color:
               !isFocused && text.trim() === placeholder
-                ? "rgb(212 212 212)"
+                ? "rgb(245 245 245)"
                 : "white",
           }}
           ref={inputRef}
