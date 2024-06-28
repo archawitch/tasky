@@ -36,7 +36,7 @@ function TodoList({ isVisible, closeTodoList }) {
               ? hexToRgba(todoColor, 0.9)
               : hexToRgba(todoColor, 1),
         }}
-        className="absolute z-50 flex h-full overflow-clip text-[0.8rem] font-medium transition-all duration-500 sm:relative"
+        className="absolute z-50 h-full w-full overflow-clip text-[0.8rem] font-medium transition-all duration-500 sm:relative"
       >
         <div
           style={{

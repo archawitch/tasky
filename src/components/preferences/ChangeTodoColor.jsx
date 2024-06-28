@@ -12,6 +12,7 @@ function ChangeTodoColor() {
   const [colorToSetIndex, setColorToSetIndex] = useState(null);
   const settings = useSettings();
   const dispatch = useDispatchSettings();
+  const isLargeScreen = screen.width >= 640;
 
   const togglePicker = (index, color) => {
     if (colorToSetIndex === index) {
@@ -64,7 +65,7 @@ function ChangeTodoColor() {
         {settings.lang === "EN" ? "todo color" : "สีด้านข้าง"}
         {settings.todoColor
           .filter((color) => {
-            if (screen.width >= 640) {
+            if (isLargeScreen) {
               return color || color == null;
             } else {
               return color !== "transparent";
@@ -74,7 +75,7 @@ function ChangeTodoColor() {
             return (
               <ChangeTodoItem
                 key={index}
-                index={index}
+                index={isLargeScreen ? index : index + 1}
                 color={color}
                 selectedColor={settings.selectedTodoColor}
                 setColor={togglePicker}

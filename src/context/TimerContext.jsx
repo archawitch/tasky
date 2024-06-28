@@ -39,6 +39,8 @@ function timerReducer(timer, action) {
         isCountdown: true,
         isBreak: false,
         isPause: false,
+        countdownMinutes: timer.countdownMinutes,
+        breakMinutes: timer.breakMinutes,
         timerStartAt: timerStartAt,
         timerEndAt: timerEndAt,
         timerElapsed: 0,

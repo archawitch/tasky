@@ -15,9 +15,6 @@ const initialSettings = (() => {
   const savedSettings = localStorage.getItem("settings");
   if (savedSettings) {
     let settings = JSON.parse(savedSettings);
-    if (!settings.todoColor || !settings.todoColor[0] || !settings.lang) {
-      settings.todoColor = defaultSettings.todoColor;
-    }
     return settings;
   } else {
     return defaultSettings;

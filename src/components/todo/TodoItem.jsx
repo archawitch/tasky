@@ -73,13 +73,13 @@ function TodoItem({ todo }) {
       style={{
         order: todo.order,
       }}
-      className="relative w-full transition-all"
+      className="relative w-full overflow-x-clip transition-all"
     >
       <div
         style={{
           marginBottom: marginBottom,
         }}
-        className="relative flex w-full transition-all"
+        className="relative flex w-full overflow-x-clip"
       >
         <div
           onClick={() => {

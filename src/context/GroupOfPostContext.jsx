@@ -2,7 +2,6 @@ import { createContext, useContext, useReducer, useEffect } from "react";
 
 const GroupContext = createContext(null);
 const GroupDispatchContext = createContext(null);
-let currentGroup = 0;
 const initialGroups = (() => {
   const savedGroups = localStorage.getItem("groups");
   if (savedGroups) {

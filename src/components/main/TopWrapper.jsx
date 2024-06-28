@@ -4,12 +4,7 @@ import SettingsButton from "./SettingsButton";
 import MusicPlayer from "../music-player/MusicPlayer";
 import ShowStatsButton from "./ShowStatsButton";
 
-function TopWrapper({
-  isTimerCountdown,
-  openTodoList,
-  openSettings,
-  openStats,
-}) {
+function TopWrapper({ openTodoList, openSettings, openStats }) {
   const isLargeScreen = screen.width > 576 ? true : false;
 
   return (
@@ -19,14 +14,8 @@ function TopWrapper({
           <Clock></Clock>
           <MusicPlayer></MusicPlayer>
           <div className="flex items-center">
-            <ShowStatsButton
-              openStats={openStats}
-              isTimerCountdown={isTimerCountdown}
-            ></ShowStatsButton>
-            <SettingsButton
-              openSettings={openSettings}
-              isTimerCountdown={isTimerCountdown}
-            ></SettingsButton>
+            <ShowStatsButton openStats={openStats}></ShowStatsButton>
+            <SettingsButton openSettings={openSettings}></SettingsButton>
           </div>
         </div>
       ) : (
@@ -34,10 +23,7 @@ function TopWrapper({
           <div className="pt-[0.5rem]">
             <OpenTodoButton openTodoList={openTodoList}></OpenTodoButton>
           </div>
-          <SettingsButton
-            openSettings={openSettings}
-            isTimerCountdown={isTimerCountdown}
-          ></SettingsButton>
+          <SettingsButton openSettings={openSettings}></SettingsButton>
         </div>
       )}
     </>

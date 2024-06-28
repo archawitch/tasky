@@ -101,7 +101,7 @@ function TodoContent({
   }, [isEditing]);
 
   return (
-    <span className="ml-[1.5rem] mr-4 overflow-hidden text-ellipsis">
+    <span className="ml-[1.5rem] mr-4 overflow-hidden text-ellipsis text-nowrap">
       {todoContent}
     </span>
   );
