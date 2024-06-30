@@ -150,8 +150,9 @@ function TodoItem({ todo }) {
         <div
           style={{
             height: isFocused ? "4rem" : "2.2rem",
+            opacity: isFocused ? "1" : "0",
           }}
-          className={`absolute flex w-full flex-col rounded-lg border-[3px] border-white transition-all`}
+          className={`absolute flex w-full flex-col rounded-lg border-[3px] border-white transition-[height]`}
         >
           {isFocused && (
             <div className="mt-[2.1rem] grid w-full flex-grow grid-cols-2">

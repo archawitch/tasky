@@ -8,33 +8,10 @@ function CountdownBreak() {
   const refInterval = useRef(null);
   const audioRef = useRef(null);
 
+  // handle key event
   useEffect(() => {
     let handleKeydown;
     if (timer.isBreak) {
-      const now = Math.floor(new Date(Date.now()) / 1000);
-      let breakElapsed = now - timer.breakStartAt;
-      const isEnded = breakElapsed >= timer.breakMinutes * 60;
-      if (isEnded) {
-        if (breakElapsed <= timer.breakMinutes * 60 + 2) {
-          audioRef.current.play();
-        }
-        dispatch({
-          type: "UPDATE_BREAK_ELAPSED",
-          breakElapsed: timer.breakMinutes * 60,
-        });
-        dispatch({
-          type: "BREAK_END",
-        });
-        clearInterval(refInterval.current);
-      } else {
-        refInterval.current = setInterval(() => {
-          breakElapsed += 0.1;
-          dispatch({
-            type: "UPDATE_BREAK_ELAPSED",
-            breakElapsed: breakElapsed,
-          });
-        }, 100);
-      }
       handleKeydown = (event) => {
         if (event.code === "Space") {
           dispatch({
@@ -44,13 +21,51 @@ function CountdownBreak() {
       };
       document.addEventListener("keydown", handleKeydown);
     }
+
     return () => {
       if (refInterval.current) {
         clearInterval(refInterval.current);
       }
       document.removeEventListener("keydown", handleKeydown);
     };
-  }, [timer.isBreak, timer.breakElapsed, dispatch]);
+  }, [timer.isBreak]);
+
+  useEffect(() => {
+    if (timer.isBreak) {
+      const now = Date.now();
+      let breakElapsed = Math.floor(now - timer.breakStartAt) / 1000;
+      // handle the timer if the timer is up
+      const isEnded = breakElapsed >= timer.breakMinutes * 60;
+      if (isEnded) {
+        // play the alarm
+        if (breakElapsed <= timer.breakMinutes * 60 + 2) {
+          audioRef.current.play();
+        }
+        // update the break elapsed
+        dispatch({
+          type: "UPDATE_BREAK_ELAPSED",
+          breakElapsed: timer.breakMinutes * 60,
+        });
+        // end the timer
+        dispatch({
+          type: "BREAK_END",
+        });
+      } else {
+        refInterval.current = setInterval(() => {
+          breakElapsed += 0.1;
+          dispatch({
+            type: "UPDATE_BREAK_ELAPSED",
+            breakElapsed: breakElapsed,
+          });
+        }, 100);
+      }
+    }
+    return () => {
+      if (refInterval.current) {
+        clearInterval(refInterval.current);
+      }
+    };
+  }, [timer.isBreak, timer.breakElapsed]);
 
   const breakLeft = Math.ceil(timer.breakMinutes * 60 - timer.breakElapsed);
   const remainingMinutes = Math.floor(breakLeft / 60)

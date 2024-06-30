@@ -20,6 +20,14 @@ function TodoSubItem({ todoId, subTodo }) {
     setIsEditing(mode);
   }
 
+  function deleteSubTodo() {
+    dispatch({
+      type: "DELETE_SUB_TASK",
+      todoId: todoId,
+      subId: subTodo.id,
+    });
+  }
+
   const handleCheckbox = () => {
     dispatch({
       type: "TOGGLE_SUB_TASK_CHECKED",

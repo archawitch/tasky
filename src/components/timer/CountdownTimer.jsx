@@ -14,59 +14,10 @@ function CountdownTimer() {
   const refInterval = useRef(null);
   const isLargeScreen = screen.width > 576;
 
+  // handle key event
   useEffect(() => {
     let handleKeydown;
     if (timer.isCountdown) {
-      const now = Math.floor(new Date(Date.now()) / 1000);
-      let elapsedTime = now - (timer.timerStartAt + timer.pauseTime);
-      // pause
-      if (timer.isPause) {
-        // increase pause time
-        refInterval.current = setInterval(() => {
-          const currentStoppedTime = Math.floor(Date.now() / 1000);
-          dispatch({
-            type: "SET_PAUSE_TIME",
-            pauseTime: timer.pauseTime + (currentStoppedTime - now),
-          });
-        }, 100);
-      }
-      // no pause
-      else {
-        // end the timer when the time is up
-        const isEnded = elapsedTime >= timer.countdownMinutes * 60;
-        if (isEnded) {
-          // update
-          dispatch({
-            type: "UPDATE_ELAPSED_TIME",
-            timerElapsed: timer.countdownMinutes * 60,
-          });
-          // dispatch to end the timer
-          dispatch({
-            type: "TIMER_END",
-          });
-          // update focus stats
-          dispatchActivity({
-            type: "ADD_NEW_ENTRY",
-            activity: {
-              date: DateToString(new Date(Date.now())),
-              spent: timer.countdownMinutes,
-            },
-          });
-          // play the alert sound
-          if (elapsedTime <= timer.countdownMinutes * 60 + 2) {
-            audioRef.current.play();
-          }
-        } else {
-          refInterval.current = setInterval(() => {
-            // update time left
-            elapsedTime += 0.1;
-            dispatch({
-              type: "UPDATE_ELAPSED_TIME",
-              timerElapsed: elapsedTime,
-            });
-          }, 100);
-        }
-      }
       handleKeydown = (event) => {
         if (event.code === "Space") {
           dispatch({
@@ -83,7 +34,89 @@ function CountdownTimer() {
       }
       document.removeEventListener("keydown", handleKeydown);
     };
-  }, [timer.isCountdown, timer.isPause, timer.timerElapsed, timer.pauseTime]);
+  }, [timer.isCountdown]);
+
+  // handle timer
+  useEffect(() => {
+    if (timer.isCountdown) {
+      const now = Date.now();
+      // elapsed time = now - (the timer was running + pausing)
+      let elapsedTime =
+        Math.round(now - timer.timerStartAt) / 1000 - timer.pauseTime;
+      const isEnded = elapsedTime >= timer.countdownMinutes * 60;
+
+      // handle pause
+      if (timer.isPause) {
+        // the user open the app and forgot to continue the timer
+        // -> the timer reset
+        if (isEnded) {
+          // end the timer
+          dispatch({
+            type: "TIMER_END",
+          });
+          // end the session
+          dispatch({
+            type: "END_SESSION",
+          });
+        }
+        // increase pause time
+        else {
+          refInterval.current = setInterval(() => {
+            const currentStoppedTime = Date.now();
+            dispatch({
+              type: "SET_PAUSE_TIME",
+              pauseTime:
+                timer.pauseTime + Math.round((currentStoppedTime - now) / 1000),
+            });
+          }, 100);
+        }
+      }
+      // run the timer if no pause
+      else {
+        // end the timer when the time is up
+        if (isEnded) {
+          // play the alert sound
+          if (elapsedTime <= timer.countdownMinutes * 60 + 2) {
+            audioRef.current.play();
+          }
+          // update focus stats
+          dispatchActivity({
+            type: "ADD_NEW_ENTRY",
+            activity: {
+              date: DateToString(new Date(timer.timerStartAt)),
+              spent: timer.countdownMinutes,
+            },
+          });
+          // update countdown mins
+          dispatch({
+            type: "UPDATE_ELAPSED_TIME",
+            timerElapsed: timer.countdownMinutes * 60,
+          });
+          // dispatch to end the timer
+          dispatch({
+            type: "TIMER_END",
+          });
+        }
+        // continue running the timer
+        else {
+          refInterval.current = setInterval(() => {
+            // update time left
+            elapsedTime += 0.1;
+            dispatch({
+              type: "UPDATE_ELAPSED_TIME",
+              timerElapsed: elapsedTime,
+            });
+          }, 100);
+        }
+      }
+    }
+
+    return () => {
+      if (refInterval.current) {
+        clearInterval(refInterval.current);
+      }
+    };
+  }, [timer.isCountdown, timer.isPause, timer.timerElapsed]);
 
   function getCountdown(seconds) {
     const remainingHours = Math.floor(seconds / 3600)

@@ -32,17 +32,15 @@ function timerReducer(timer, action) {
     case "SET_BREAK_MINUTES":
       return { ...timer, breakMinutes: action.breakMinutes };
     case "START_TIMER":
-      const timerStartAt = Math.floor(Date.now() / 1000);
-      const timerEndAt = timerStartAt + timer.countdownMinutes * 60;
+      const timerStartAt = Date.now();
       return {
         ...timer,
         isCountdown: true,
         isBreak: false,
         isPause: false,
-        countdownMinutes: timer.countdownMinutes,
-        breakMinutes: timer.breakMinutes,
+        countdownMinutes: action.countdownMinutes,
+        breakMinutes: action.breakMinutes,
         timerStartAt: timerStartAt,
-        timerEndAt: timerEndAt,
         timerElapsed: 0,
         breakElapsed: 0,
         pauseTime: 0,
@@ -59,14 +57,12 @@ function timerReducer(timer, action) {
         status: "countdown ended",
       };
     case "START_BREAK":
-      const breakStartAt = Math.floor(Date.now() / 1000);
-      const breakEndAt = breakStartAt + timer.breakMinutes * 60;
+      const breakStartAt = Date.now();
       return {
         ...timer,
         isBreak: true,
         isPause: false,
         breakStartAt: breakStartAt,
-        breakEndAt: breakEndAt,
         status: "break",
       };
     case "UPDATE_BREAK_ELAPSED":

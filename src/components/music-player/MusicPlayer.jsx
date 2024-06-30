@@ -193,6 +193,21 @@ function MusicPlayer() {
     }
   }, [radios]);
 
+  useEffect(() => {
+    const handleKeydown = (event) => {
+      event.stopPropagation();
+      if (event.code === "Space") {
+        handlePause();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeydown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeydown);
+    };
+  }, []);
+
   return (
     <>
       <div
