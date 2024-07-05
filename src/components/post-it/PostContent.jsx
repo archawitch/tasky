@@ -7,10 +7,7 @@ function PostContent({ post, dispatch, isEditing, setEdit }) {
   const [inputText, setInputText] = useState(post.text);
 
   useEffect(() => {
-    // adjusts height of the textarea automatically
     if (refTextarea.current) {
-      refTextarea.current.style.height = "auto";
-      refTextarea.current.style.height = `${refTextarea.current.scrollHeight}px`;
       // set the cursor to the end
       if (isFirstEditing) {
         refTextarea.current.focus();
@@ -18,6 +15,8 @@ function PostContent({ post, dispatch, isEditing, setEdit }) {
         refTextarea.current.setSelectionRange(length, length);
         setIsFirstEditing(false);
       }
+      // adjusts height of the textarea automatically
+      refTextarea.current.style.height = `${refTextarea.current.scrollHeight}px`;
     }
   }, [isEditing, inputText]);
 
