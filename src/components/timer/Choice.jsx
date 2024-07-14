@@ -1,7 +1,9 @@
 import { useContext } from "react";
 import { useTimer, useDispatchTimer } from "../../context/TimerContext";
+import { useSettings } from "../../context/SettingsContext";
 
 function Choice() {
+  const lang = useSettings().lang;
   const timer = useTimer();
   const dispatch = useDispatchTimer();
 
@@ -54,7 +56,7 @@ function Choice() {
           }}
           className="mb-8 text-2xl"
         >
-          Continue
+          {lang === "EN" ? "Continue" : "ต่อไป"}
         </button>
       )}
       {timer.status === "countdown ended" && (
@@ -83,7 +85,7 @@ function Choice() {
           }}
           className="mb-8 text-2xl"
         >
-          Again
+          {lang === "EN" ? "Again" : "เริ่มใหม่"}
         </button>
       )}
       <button
@@ -95,7 +97,7 @@ function Choice() {
         }}
         className="text-2xl"
       >
-        End
+        {lang === "EN" ? "End" : "จบ"}
       </button>
     </div>
   );
