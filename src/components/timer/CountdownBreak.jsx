@@ -95,7 +95,7 @@ function CountdownBreak() {
           </div>
         </div>
       }
-      <audio className="hidden" ref={audioRef} src={getAlarmSound(1).url} />
+      <audio className="hidden" ref={audioRef} src={getAlarmSound(2).url} />
     </>
   );
 }

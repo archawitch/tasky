@@ -20,6 +20,38 @@ function MusicPlayer() {
   const [radios, setRadios] = useState(getRadios());
   const timer = useTimer();
 
+  // handle timer alarm
+  useEffect(() => {
+    // handle timer alarm
+    if (timer.status !== lastTimerStatus) {
+      if (
+        timer.status === "countdown ended" ||
+        timer.status === "break ended"
+      ) {
+        // if there is a player playing on the background then pause for a sec
+        if (player && isPlaying) {
+          player.pauseVideo();
+          intervalRef.current = setInterval(() => {
+            player.playVideo();
+          }, 13000);
+        }
+      }
+      setLastTimerStatus(timer.status);
+    }
+
+    if (isFirstRender) {
+      setLastTimerStatus(timer.status);
+      setIsFirstRender(false);
+    }
+
+    // Clean up the player on unmount
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [timer.status]);
+
   // handle player manipulation
   useEffect(() => {
     if (isFirstRender || (isRadioChanging && radios.length >= 1)) {
@@ -72,38 +104,6 @@ function MusicPlayer() {
       localStorage.setItem("selectedRadio", currentIndex);
     }
   }, [currentIndex]);
-
-  // handle timer alarm
-  useEffect(() => {
-    // handle timer alarm
-    if (timer.status !== lastTimerStatus) {
-      if (
-        timer.status === "countdown ended" ||
-        timer.status === "break ended"
-      ) {
-        // if there is a player playing on the background then pause for a sec
-        if (player && isPlaying) {
-          player.pauseVideo();
-          intervalRef.current = setInterval(() => {
-            player.playVideo();
-          }, 8000);
-        }
-      }
-      setLastTimerStatus(timer.status);
-    }
-
-    if (isFirstRender) {
-      setLastTimerStatus(timer.status);
-      setIsFirstRender(false);
-    }
-
-    // Clean up the player on unmount
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [timer.status]);
 
   // play the player
   const handlePlay = () => {
@@ -305,14 +305,26 @@ const selectedRadio = () => {
 const providedRadios = [
   {
     id: "jfKfPfyJRdk",
-    name: "Lofi hip hop ♫",
+    name: "lofi hip hop 📚",
+  },
+  {
+    id: "4oStw0r33so",
+    name: "peaceful piano 🎹",
+  },
+  {
+    id: "S_MOd40zlYU",
+    name: "dark ambient 🌃",
+  },
+  {
+    id: "4xDzrJKXOOY",
+    name: "synthwave radio 🌌",
   },
   {
     id: "mIYzp5rcTvU",
-    name: "Classical 𝄞⨾𓍢ִ໋",
+    name: "classical 𝄞⨾𓍢ִ໋",
   },
   {
     id: "Dx5qFachd3A",
-    name: "Jazz ☕︎",
+    name: "soft jazz ☕︎",
   },
 ];

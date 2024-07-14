@@ -14,7 +14,7 @@ function ChangeLanguage({ lang }) {
           });
         }}
         style={{
-          fontWeight: lang === "EN" ? "bold" : null,
+          fontWeight: lang === "EN" ? "bold" : "normal",
         }}
         className="hover:!text-white"
       >
@@ -30,7 +30,7 @@ function ChangeLanguage({ lang }) {
           });
         }}
         style={{
-          fontWeight: lang === "TH" ? "bold" : null,
+          fontWeight: lang === "TH" ? "bold" : "normal",
         }}
         className="hover:!text-white"
       >
