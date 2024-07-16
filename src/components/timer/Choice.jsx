@@ -70,7 +70,7 @@ function Choice() {
           }}
           className="mb-8 text-2xl"
         >
-          Break
+          {lang === "EN" ? "Break" : "พัก"}
         </button>
       )}
       {timer.status !== "countdown" && (
